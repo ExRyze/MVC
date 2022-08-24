@@ -14,4 +14,11 @@ class Blog_model
       $this->db->query("SELECT * FROM {$this->table}");
       return $this->db->resultAll();
     }
+
+    public function insert($post) {
+      $this->db->query("INSERT INTO {$this->table} (title, description) VALUES (:title, :desc)");
+      $this->db->bind("title", $post["title"]);
+      $this->db->bind("desc", $post["description"]);
+      return $this->db->rowCount();
+    }
 }

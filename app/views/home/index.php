@@ -1,6 +1,5 @@
 <body>
+  <?php $this->view("template/navbar", $data); ?>
   <div>
-    <h1>This is <?=$data["title"]?></h1>
-    <a href="<?=BASE_URL;?>/user">Go to User</a>
-    <a href="<?=BASE_URL;?>/blog">Go to Blog</a>
+    <h1 class="mb-3"><?=$data["title"]?></h1>
   </div>
