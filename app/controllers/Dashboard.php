@@ -7,4 +7,9 @@ class Dashboard extends Controllers {
     return $this->view('dashboard/index', $data);
   }
 
+  public function error($code = 404) {
+    $data['page'] = 'EXBD | Error';
+    return $this->view('error/404', $data);
+  }
+
 }
