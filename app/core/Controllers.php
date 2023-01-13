@@ -9,7 +9,7 @@ class Controllers {
   public function model($model) {
     $model .= '_table';
     require_once "../app/models/{$model}.php";
-    new $model;
+    return new $model;
   }
 
 }
