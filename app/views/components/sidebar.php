@@ -21,7 +21,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<?= BASE_URL ?>/petugas/entri">
                     <span>Entri Pembayaran</span></a>
             </li>
 
@@ -33,7 +33,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Siswa</a>
+                        <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelsiswa">Siswa</a>
                         <a class="collapse-item" href="cards.html">Petugas</a>
                         <a class="collapse-item" href="cards.html">Pembayaran</a>
                         <a class="collapse-item" href="cards.html">Kelas</a>

@@ -9,6 +9,11 @@ class Siswa_table {
     $this->db = new Database;
   }
 
+  public function getAll() {
+    $this->db->query("SELECT * FROM {$this->table}, `kelas`, `spp` WHERE {$this->table}.`id_kelas` = `kelas`.`id_kelas` && {$this->table}.`id_spp` = `spp`.`id_spp`");
+    return $this->db->resultAll();
+  }
+
   public function validate() {
     $this->db->query("SELECT * FROM {$this->table} WHERE `email` = :email && `password` = :password");
     $this->db->bind('email', $_POST['email']);
@@ -26,6 +31,11 @@ class Siswa_table {
   public function count() {
     $this->db->query("SELECT * FROM {$this->table}");
     return $this->db->rowCount();
+  }
+
+  public function list() {
+    $this->db->query("SELECT {$this->table}.`nisn`, {$this->table}.`nis`, {$this->table}.`nama`, {$this->table}.`id_spp`, `spp`.`nominal` FROM {$this->table}, `spp` WHERE {$this->table}.`id_spp` = `spp`.`id_spp`");
+    return $this->db->resultAll();
   }
 
   // public function validateUsername() {
