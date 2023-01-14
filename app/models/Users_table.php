@@ -9,6 +9,13 @@ class Users_Table {
     $this->db = new Database;
   }
 
+  public function validate() {
+    $this->db->query("SELECT * FROM {$this->table} WHERE `email` = :email && `password` = :password");
+    $this->db->bind('email', $_POST['email']);
+    $this->db->bind('password', $_POST['password']);
+    return $this->db->rowCount();
+  }
+
   public function validateUsername() {
     $this->db->query("SELECT * FROM {$this->table} WHERE `username` = :username ");
     $this->db->bind('username', $_POST['username']);
@@ -30,7 +37,10 @@ class Users_Table {
   }
 
   public function login() {
-
+    $this->db->query("SELECT * FROM {$this->table} WHERE `email` = :email && `password` = :password");
+    $this->db->bind('email', $_POST['email']);
+    $this->db->bind('password', $_POST['password']);
+    return $this->db->result();
   }
 
 }

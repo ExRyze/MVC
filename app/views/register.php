@@ -40,20 +40,20 @@
                             <form class="user" method="post" action="<?= BASE_URL ?>/register/cregister">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="username"
-                                        placeholder="Username">
+                                        placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" name="email"
-                                        placeholder="Email Address">
+                                        placeholder="Email Address" required>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            name="password" placeholder="Password">
+                                            name="password" placeholder="Password" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            name="rpassword" placeholder="Repeat Password">
+                                            name="rpassword" placeholder="Repeat Password" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -62,7 +62,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="<?= BASE_URL ?>login">Already have an account? Login!</a>
+                                <a class="small" href="<?= BASE_URL ?>/login">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
