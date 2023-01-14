@@ -10,3 +10,6 @@ define('CSS', BASE_URL.'/public/css');
 define('VENDOR', BASE_URL.'/public/vendor');
 define('IMG', BASE_URL.'/public/img');
 define('JS', BASE_URL.'/public/js');
+
+define('TOPBAR', VIEW.'/components/topbar.php');
+define('SIDEBAR', VIEW.'/components/sidebar.php');
