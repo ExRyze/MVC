@@ -15,7 +15,7 @@ class Petugas extends Controllers {
   }
 
   public function clogin() {
-    if($this->model('Petugas')->validate()) {
+    if($this->model('Petugas')->validateLogin()) {
       $_SESSION['user'] = $this->model('Petugas')->login();
       Flasher::setFlasher("Berhasil Login", "alert alert-success");
       return header("Location: ".BASE_URL."/petugas");
@@ -37,20 +37,26 @@ class Petugas extends Controllers {
   }
 
   public function tabelsiswa() {
-    Middleware::level(('admin' || 'petugas'));
+    Middleware::level('admin');
     $data['siswa'] = $this->model('Siswa')->getAll();
     $data['kelas'] = $this->model('Kelas')->getAll();
     return $this->view('petugas/tabelsiswa', $data);
   }
 
+  public function tabelpetugas() {
+    Middleware::level('admin');
+    $data['petugas'] = $this->model('Petugas')->getAll();
+    return $this->view('petugas/tabelpetugas', $data);
+  }
+
   public function tabelkelas() {
-    Middleware::level(('admin' || 'petugas'));
+    Middleware::level('admin');
     $data['kelas'] = $this->model('Kelas')->getAll();
     return $this->view('petugas/tabelkelas', $data);
   }
 
   public function add($key) {
-    Middleware::level(('admin' || 'petugas'));
+    Middleware::level('admin');
     if(!$this->model($key)->validate()) {
       if($key === 'siswa') {
         $this->model($key)->storeSPP();
@@ -63,7 +69,7 @@ class Petugas extends Controllers {
   }
 
   public function edit($key) {
-    Middleware::level(('admin' || 'petugas'));
+    Middleware::level('admin');
     if($this->model($key)->validate()) {
       if($key === 'siswa') {
         $this->model($key)->updateSPP();
@@ -74,7 +80,7 @@ class Petugas extends Controllers {
   }
 
   public function delete($key) {
-    Middleware::level(('admin' || 'petugas'));
+    Middleware::level('admin');
     if($this->model($key)->validate()) {
       $this->model($key)->delete();
       if($key === 'siswa') {

@@ -26,6 +26,7 @@
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            <?php if($_SESSION['user']['level'] === 'admin') { ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -34,11 +35,12 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelsiswa">Siswa</a>
-                        <a class="collapse-item" href="cards.html">Petugas</a>
+                        <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelpetugas">Petugas</a>
                         <a class="collapse-item" href="cards.html">Pembayaran</a>
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelkelas">Kelas</a>
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
         </ul>

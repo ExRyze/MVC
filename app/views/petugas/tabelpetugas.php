@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pembayaran SPP - Tabel Kelas</title>
+    <title>Pembayaran SPP - Tabel Petugas</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= VENDOR ?>/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,38 +47,44 @@
                     <!-- Page Heading -->
                     <?php Flasher::flasher() ?>
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Tabel Kelas</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Tabel Petugas</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addKelas">Tambah Kelas</button>
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addPetugas">Tambah Petugas</button>
                     <table class="col-12 table table-hover table-bordered text-center">
                       <thead>
                         <tr>
                           <th>No.</th>
-                          <th>Nama Kelas</th>
-                          <th>Kompetensi Keahlian</th>
+                          <th>Username</th>
+                          <th>Password</th>
+                          <th>Nama_petugas</th>
+                          <th>Level</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody class="text-left">
-                        <?php foreach($data['kelas'] as $i => $kelas) { ?>
+                        <?php foreach($data['petugas'] as $i => $petugas) { ?>
                           <tr>
                             <td><?= $i+1 ?></td>
-                            <td><?= $kelas['nama_kelas'] ?></td>
-                            <td><?= $kelas['kompetensi_keahlian'] ?></td>
+                            <td><?= $petugas['username'] ?></td>
+                            <td><?= $petugas['nama_petugas'] ?></td>
+                            <td><?= $petugas['password'] ?></td>
+                            <td><?= $petugas['level'] ?></td>
                             <td>
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editKelas<?= $kelas['id_kelas'] ?>">Edit</button>
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas<?= $kelas['id_kelas'] ?>">Hapus</button>
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPetugas<?= $petugas['id_petugas'] ?>">Edit</button>
+                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePetugas<?= $petugas['id_petugas'] ?>">Hapus</button>
                             </td>
                           </tr>
                         <?php } ?>
                       </tbody>
                       <tfoot>
                         <tr>
-                        <th>No.</th>
-                          <th>Nama Kelas</th>
-                          <th>Kompetensi Keahlian</th>
+                          <th>No.</th>
+                          <th>Username</th>
+                          <th>Password</th>
+                          <th>Nama_petugas</th>
+                          <th>Level</th>
                           <th>Action</th>
                         </tr>
                       </tfoot>
@@ -111,26 +117,38 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Kelas Modal-->
-    <div class="modal fade" id="addKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Petugas Modal-->
+    <div class="modal fade" id="addPetugas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/add/kelas">
+            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/add/petugas">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kelas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Petugas</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="font-weight-bold text-center">Data Kelas</h6>
+                  <h6 class="font-weight-bold text-center">Data Petugas</h6>
                     <div class="form-group">
-                        <label for="nama_kelas">Nama Kelas</label>
-                        <input class="form-control" type="text" name="nama_kelas" required id="nama_kelas">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" name="username" required id="username">
                     </div>
                     <div class="form-group">
-                        <label for="kompetensi_keahlian">Kompetensi Keahlian</label>
-                        <input class="form-control" type="text" name="kompetensi_keahlian" required id="kompetensi_keahlian">
+                        <label for="nama_petugas">Nama petugas</label>
+                        <input class="form-control" type="text" name="nama_petugas" required id="nama_petugas">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" name="password" required id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Level</label>
+                        <select class="custom-select" name="level" required id="level">
+                            <option value="" selected hidden disabled>Pilih Level...</option>
+                            <option value="admin">admin</option>
+                            <option value="petugas">Petugas</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -140,27 +158,38 @@
         </div>
     </div>
 
-    <?php foreach($data['kelas'] as $kelas) { ?>
-    <div class="modal fade" id="editKelas<?= $kelas['id_kelas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <?php foreach($data['petugas'] as $petugas) { ?>
+      <div class="modal fade" id="editPetugas<?= $petugas['id_petugas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/edit/kelas">
+            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/edit/petugas">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Kelas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Petugas</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="font-weight-bold text-center">Data Kelas</h6>
-                  <input type="hidden" name="id_kelas" value="<?= $kelas['id_kelas'] ?>">
+                  <h6 class="font-weight-bold text-center">Data Petugas</h6>
+                  <input type="hidden" name="id_petugas" value="<?= $petugas['id_petugas'] ?>">
                   <div class="form-group">
-                        <label for="nama_kelas">Nama Kelas</label>
-                        <input class="form-control" type="text" name="nama_kelas" required id="nama_kelas" value="<?= $kelas['nama_kelas'] ?>">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" name="username" required id="username" value="<?= $petugas['username'] ?>">
                     </div>
                     <div class="form-group">
-                        <label for="kompetensi_keahlian">Kompetensi Keahlian</label>
-                        <input class="form-control" type="text" name="kompetensi_keahlian" required id="kompetensi_keahlian" value="<?= $kelas['kompetensi_keahlian'] ?>">
+                        <label for="nama_petugas">Nama petugas</label>
+                        <input class="form-control" type="text" name="nama_petugas" required id="nama_petugas" value="<?= $petugas['nama_petugas'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" name="password" required id="password" value="<?= $petugas['password'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Level</label>
+                        <select class="custom-select" name="level" required id="level">
+                            <option value="admin" <?= ($petugas['level'] === 'admin') ? 'selected' : '' ?>>admin</option>
+                            <option value="petugas" <?= ($petugas['level'] === 'petugas') ? 'selected' : '' ?>>Petugas</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -170,21 +199,21 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteKelas<?= $kelas['id_kelas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="deletePetugas<?= $petugas['id_petugas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Kelas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Petugas</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Yakin hapus data kelas?</div>
+                <div class="modal-body">Yakin hapus data petugas?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="<?= BASE_URL ?>/petugas/delete/kelas" method="post">
-                      <input type="hidden" name="id_kelas" value="<?= $kelas['id_kelas'] ?>">
+                    <form action="<?= BASE_URL ?>/petugas/delete/petugas" method="post">
+                      <input type="hidden" name="id_petugas" value="<?= $petugas['id_petugas'] ?>">
                       <button type="submit" class="btn btn-primary" >Hapus</button>
                     </form>
                 </div>

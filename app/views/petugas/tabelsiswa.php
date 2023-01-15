@@ -192,7 +192,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/edit/siswa">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
