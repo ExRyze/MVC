@@ -36,7 +36,7 @@
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelsiswa">Siswa</a>
                         <a class="collapse-item" href="cards.html">Petugas</a>
                         <a class="collapse-item" href="cards.html">Pembayaran</a>
-                        <a class="collapse-item" href="cards.html">Kelas</a>
+                        <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelkelas">Kelas</a>
                     </div>
                 </div>
             </li>

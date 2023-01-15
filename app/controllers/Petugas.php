@@ -43,11 +43,21 @@ class Petugas extends Controllers {
     return $this->view('petugas/tabelsiswa', $data);
   }
 
+  public function tabelkelas() {
+    Middleware::level(('admin' || 'petugas'));
+    $data['kelas'] = $this->model('Kelas')->getAll();
+    return $this->view('petugas/tabelkelas', $data);
+  }
+
   public function add($key) {
     Middleware::level(('admin' || 'petugas'));
     if(!$this->model($key)->validate()) {
-      $this->model($key)->storeSPP();
-      $this->model($key)->store($this->model($key)->getIDSPP());
+      if($key === 'siswa') {
+        $this->model($key)->storeSPP();
+        $this->model($key)->store($this->model($key)->getIDSPP());
+      } else {
+        $this->model($key)->store();
+      }
       Flasher::setFlasher("Data berhasi ditambahkan", "alert alert-success"); return Functions::back();}
     Flasher::setFlasher("NISN atau NIS telah dipakai oleh siswa lain...", "alert alert-danger"); return Functions::back();
   }
@@ -55,7 +65,9 @@ class Petugas extends Controllers {
   public function edit($key) {
     Middleware::level(('admin' || 'petugas'));
     if($this->model($key)->validate()) {
-      $this->model($key)->updateSPP();
+      if($key === 'siswa') {
+        $this->model($key)->updateSPP();
+      }
       $this->model($key)->update();
       Flasher::setFlasher("Data berhasi diperbaharui", "alert alert-success"); return Functions::back();}
     Flasher::setFlasher("Terjadi suatu kesalahan...", "alert alert-danger"); return Functions::back();
@@ -65,7 +77,9 @@ class Petugas extends Controllers {
     Middleware::level(('admin' || 'petugas'));
     if($this->model($key)->validate()) {
       $this->model($key)->delete();
-      $this->model($key)->deleteSPP();
+      if($key === 'siswa') {
+        $this->model($key)->deleteSPP();
+      }
       Flasher::setFlasher("Data berhasi dihapus", "alert alert-success"); return Functions::back();}
     Flasher::setFlasher("Terjadi suatu kesalahan...", "alert alert-danger"); return Functions::back();
   }
