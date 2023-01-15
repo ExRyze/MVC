@@ -51,7 +51,7 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addSiswa">Tambah Siswa</button>
                     <table class="col-12 table table-hover table-bordered text-center">
                       <thead>
                         <tr>
@@ -62,6 +62,7 @@
                           <th>Alamat</th>
                           <th>No Telepon</th>
                           <th>SPP</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody class="text-left">
@@ -75,7 +76,11 @@
                             <td><?= $siswa['no_telp'] ?></td>
                             <td>
                               <strong>Tahun :</strong> <?= $siswa['tahun'] ?> <br>
-                              <strong>Nominal :</strong> <?= $siswa['nominal'] ?>
+                              <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 2, ',', '.') ?>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSiswa<?= $siswa['nisn'] ?>">Edit</button>
+                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSiswa<?= $siswa['nisn'] ?>">Hapus</button>
                             </td>
                           </tr>
                         <?php } ?>
@@ -89,6 +94,7 @@
                           <th>Alamat</th>
                           <th>No Telepon</th>
                           <th>SPP</th>
+                          <th>Action</th>
                         </tr>
                       </tfoot>
                     </table>
@@ -119,6 +125,152 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Siswa Modal-->
+    <div class="modal fade" id="addSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/add/siswa">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <h6 class="font-weight-bold text-center">Data Siswa</h6>
+                    <div class="form-group">
+                        <label for="nisn">NISN</label>
+                        <input class="form-control" type="text" name="nisn" required id="nisn">
+                    </div>
+                    <div class="form-group">
+                        <label for="nis">NIS</label>
+                        <input class="form-control" type="text" name="nis" required id="nis">
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input class="form-control" type="text" name="nama" required id="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_kelas">Kelas</label>
+                        <select class="custom-select" name="id_kelas" required id="id_kelas">
+                            <option value="" selected hidden disabled>Pilih Kelas...</option>
+                            <?php foreach($data['kelas'] as $kelas) { ?>
+                              <option value="<?= $kelas['id_kelas'] ?>"><?= $kelas['nama_kelas'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp">No telepon</label>
+                        <input class="form-control" type="text" name="no_telp" required id="no_telp">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat">Alamat</label>
+                        <textarea class="form-control" name="alamat" required id="alamat" rows="2"></textarea>
+                    </div>
+                    <div class="border border-3 border-dark mb-3"></div>
+                    <h6 class="font-weight-bold text-center">Data SPP</h6>
+                    <div class="form-group">
+                        <label for="tahun">Tahun</label>
+                        <input class="form-control" type="text" name="tahun" required id="tahun">
+                    </div>
+                    <div class="form-group">
+                        <label for="nominal">Nominal</label>
+                        <input class="form-control" type="number" name="nominal" required id="nominal">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <?php foreach($data['siswa'] as $siswa) { ?>
+      <div class="modal fade" id="editSiswa<?= $siswa['nisn'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/edit/siswa">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <h6 class="font-weight-bold text-center">Data Siswa</h6>
+                    <div class="form-group">
+                        <label for="nisn">NISN</label>
+                        <input class="form-control" type="text" name="nisn" readonly value="<?= $siswa['nisn'] ?>" id="nisn">
+                    </div>
+                    <div class="form-group">
+                        <label for="nis">NIS</label>
+                        <input class="form-control" type="text" name="nis" readonly value="<?= $siswa['nis'] ?>" id="nis">
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input class="form-control" type="text" name="nama" required value="<?= $siswa['nama'] ?>" id="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_kelas">Kelas</label>
+                        <select class="custom-select" name="id_kelas" required id="id_kelas">
+                            <option value="" selected hidden disabled>Pilih Kelas...</option>
+                            <?php foreach($data['kelas'] as $kelas) { ?>
+                              <option value="<?= $kelas['id_kelas'] ?>" <?= ($siswa['id_kelas'] === $kelas['id_kelas']) ? 'selected' : '' ?>><?= $kelas['nama_kelas'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp">No telepon</label>
+                        <input class="form-control" type="text" name="no_telp" required value="<?= $siswa['no_telp'] ?>" id="no_telp">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat">Alamat</label>
+                        <textarea class="form-control" name="alamat" required id="alamat" rows="2"><?= $siswa['alamat'] ?></textarea>
+                    </div>
+                    <div class="border border-3 border-dark mb-3"></div>
+                    <h6 class="font-weight-bold text-center">Data SPP</h6>
+                    <input type="hidden" name="id_spp" value="<?= $siswa['id_spp'] ?>">
+                    <div class="form-group">
+                        <label for="tahun">Tahun</label>
+                        <input class="form-control" type="text" name="tahun" required value="<?= $siswa['tahun'] ?>" id="tahun">
+                    </div>
+                    <div class="form-group">
+                        <label for="nominal">Nominal</label>
+                        <input class="form-control" type="number" name="nominal" required value="<?= $siswa['nominal'] ?>" id="nominal">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteSiswa<?= $siswa['nisn'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Siswa</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Yakin hapus data siswa?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="<?= BASE_URL ?>/petugas/delete/siswa" method="post">
+                      <input type="hidden" name="nisn" value="<?= $siswa['nisn'] ?>">
+                      <input type="hidden" name="nis" value="<?= $siswa['nis'] ?>">
+                      <input type="hidden" name="id_spp" value="<?= $siswa['id_spp'] ?>">
+                      <button type="submit" class="btn btn-primary" >Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= VENDOR ?>/jquery/jquery.min.js"></script>
