@@ -12,7 +12,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="<?= BASE_URL ?>/petugas">
+                <a class="nav-link" href="<?= (isset($_SESSION['user']['level'])) ? BASE_URL.'/petugas' : '' ?>">
                     <span>Dashboard</span></a>
             </li>
 
@@ -20,9 +20,17 @@
             <hr class="sidebar-divider">
 
             <!-- Nav Item - Charts -->
+            <?php if(isset($_SESSION['user']['level']) && ($_SESSION['user']['level'] === 'admin' || $_SESSION['user']['level'] === 'petugas')) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?= BASE_URL ?>/petugas/entri">
                     <span>Entri Pembayaran</span></a>
+            </li>
+            <?php } ?>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASE_URL ?>/petugas/historypembayaran">
+                    <span>History Pembayaran</span></a>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->

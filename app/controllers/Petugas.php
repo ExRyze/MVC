@@ -36,6 +36,12 @@ class Petugas extends Controllers {
     Flasher::setFlasher("Terhadi suatu kesalahan...", "alert alert-danger"); return Functions::back();
   }
 
+  public function historypembayaran() {
+    Middleware::level(('admin' || 'petugas'));
+    $data['pembayaran'] = $this->model('Pembayaran')->getHistoryEntri();
+    return $this->view('petugas/historypembayaran', $data);
+  }
+
   public function tabelsiswa() {
     Middleware::level('admin');
     $data['siswa'] = $this->model('Siswa')->getAll();
