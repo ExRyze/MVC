@@ -20,6 +20,12 @@ class Pembayaran_table {
     return $this->db->resultAll();
   }
 
+  public function getHistory() {
+    $this->db->query("SELECT {$this->table}.*, `siswa`.`nis`, `siswa`.`nama`, `petugas`.`username`, `spp`.* FROM {$this->table}, `petugas`, `siswa`, `spp` WHERE {$this->table}.`id_petugas` = `petugas`.`id_petugas` && {$this->table}.`nisn` = `siswa`.`nisn` && {$this->table}.`id_spp` = `siswa`.`id_spp` && `siswa`.`id_spp` = `spp`.`id_spp` && `siswa`.`nisn` = :id");
+    $this->db->bind('id', $_SESSION['user']['nisn']);
+    return $this->db->resultAll();
+  }
+
   public function validate() {
     $this->db->query("SELECT * FROM {$this->table} WHERE `id_pembayaran` = :id_pembayaran");
     $this->db->bind('id_pembayaran', $_POST['id_pembayaran']);

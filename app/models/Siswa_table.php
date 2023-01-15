@@ -15,15 +15,14 @@ class Siswa_table {
   }
 
   public function validate() {
-    $this->db->query("SELECT * FROM {$this->table} WHERE `nisn` = :nisn && `nis` = :nis");
+    $this->db->query("SELECT * FROM {$this->table} WHERE `nisn` = :nisn");
     $this->db->bind('nisn', $_POST['nisn']);
-    $this->db->bind('nis', $_POST['nis']);
     return $this->db->rowCount();
   }
   
   public function login() {
-    $this->db->query("SELECT * FROM {$this->table} WHERE `email` = :email && `password` = :password");
-    $this->db->bind('email', $_POST['email']);
+    $this->db->query("SELECT * FROM {$this->table} WHERE `nisn` = :nisn && `password` = :password");
+    $this->db->bind('nisn', $_POST['nisn']);
     $this->db->bind('password', $_POST['password']);
     return $this->db->result();
   }

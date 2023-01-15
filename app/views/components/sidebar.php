@@ -12,7 +12,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="<?= (isset($_SESSION['user']['level'])) ? BASE_URL.'/petugas' : '' ?>">
+                <a class="nav-link" href="<?= (isset($_SESSION['user']['level'])) ? BASE_URL.'/petugas' : BASE_URL.'/siswa' ?>">
                     <span>Dashboard</span></a>
             </li>
 
@@ -29,12 +29,12 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= BASE_URL ?>/petugas/historypembayaran">
+                <a class="nav-link" href="<?= (isset($_SESSION['user']['level'])) ? BASE_URL.'/petugas/historypembayaran' : BASE_URL.'/siswa/historypembayaran' ?>">
                     <span>History Pembayaran</span></a>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <?php if($_SESSION['user']['level'] === 'admin') { ?>
+            <?php if(isset($_SESSION['user']['level']) && $_SESSION['user']['level'] === 'admin') { ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
