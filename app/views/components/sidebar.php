@@ -36,7 +36,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelsiswa">Siswa</a>
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelpetugas">Petugas</a>
-                        <a class="collapse-item" href="cards.html">Pembayaran</a>
+                        <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelpembayaran">Pembayaran</a>
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelkelas">Kelas</a>
                     </div>
                 </div>

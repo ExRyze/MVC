@@ -55,6 +55,12 @@ class Petugas extends Controllers {
     return $this->view('petugas/tabelkelas', $data);
   }
 
+  public function tabelpembayaran() {
+    Middleware::level('admin');
+    $data['pembayaran'] = $this->model('Pembayaran')->getAll();
+    return $this->view('petugas/tabelpembayaran', $data);
+  }
+
   public function add($key) {
     Middleware::level('admin');
     if(!$this->model($key)->validate()) {
