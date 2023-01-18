@@ -31,7 +31,7 @@ class Database {
   }
 
   public function bind($name, $value, $type = null) {
-    if($type === null){
+    if(is_null($type)){
       switch (true) {
         case is_int($value):
           $type = PDO::PARAM_INT;
