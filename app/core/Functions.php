@@ -2,7 +2,7 @@
 
 class Functions {
 
-  static function back() {
+  public static function back() {
     echo "<script>javascript:history.go(-1);</scritp>";
   }
   
