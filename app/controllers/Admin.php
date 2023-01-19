@@ -1,6 +1,6 @@
 <?php
 
-class Petugas extends Controller {
+class Admin extends Controller {
 
   public function index() {
     Middleware::auth();
