@@ -27,4 +27,9 @@ class Admin extends Controller {
     Flasher::setMessage("Username of password wrong!", "alert-danger");
     return Functions::back();
   }
+
+  public function logout() {
+    session_destroy();
+    return header("Location: ".BASE_URL."/admin/login");
+  }
 }
