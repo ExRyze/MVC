@@ -8,9 +8,23 @@ class Admin extends Controller {
     return $this->view('index', $data);
   }
 
-  // public function login() {
-  //   Middleware::auth(true);
-  //   $data['page'] = "Admin Login";
-  //   return $this->view('admin/login', $data);
-  // }
+  public function login() {
+    Middleware::auth(false);
+    $data['page'] = "Admin Login";
+    return $this->view('admin/login', $data);
+  }
+
+  public function clogin() {
+    Middleware::auth(false);
+    if(!isset($_POST)) {
+      Flasher::setMessage("Please input data in form!", "alert-warning");
+      return header("Location: ".BASE_URL."/admin/login");
+    }
+    if($this->model('Petugas')->validate()) {
+      $_SESSION['petugas'] = $this->model('Petugas')->login();
+      return header("Location: ".BASE_URL."/admin");
+    }
+    Flasher::setMessage("Username of password wrong!", "alert-danger");
+    return Functions::back();
+  }
 }
