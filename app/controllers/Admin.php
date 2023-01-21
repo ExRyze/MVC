@@ -32,4 +32,9 @@ class Admin extends Controller {
     session_destroy();
     return header("Location: ".BASE_URL."/admin/login");
   }
+
+  public function laporan() {
+    $data['page'] = "Pengaduan Masyarakat";
+    return $this->view('admin/laporan');
+  }
 }

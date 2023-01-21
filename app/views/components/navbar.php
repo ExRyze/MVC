@@ -32,19 +32,37 @@
         </div>
     </li>
 
-    <!-- Nav Item - User Information -->
+<?php if(!isset($_SESSION['petugas'])) { ?>
     <li class="nav-item dropdown no-arrow">
-        <a class="nav-link" href="#" role="button">
+        <a class="nav-link" href="<?= BASE_URL ?>" role="button">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Home</span>
         </a>
     </li>
 
     <li class="nav-item dropdown no-arrow">
-        <a class="nav-link" href="<?= BASE_URL ?>/admin" role="button">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pelaporan</span>
+        <a class="nav-link" href="<?= BASE_URL ?>/lapor" role="button">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Lapor</span>
         </a>
     </li>
-<?php if(isset($_SESSION['petugas'])) { ?>
+
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link" href="<?= BASE_URL ?>/lapor" role="button">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Cari Pengaduan</span>
+        </a>
+    </li>
+<?php } else if(isset($_SESSION['petugas'])) { ?>
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link" href="<?= BASE_URL ?>/admin" role="button">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Home</span>
+        </a>
+    </li>
+
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link" href="<?= BASE_URL ?>/admin/laporan" role="button">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pengaduan Masyarakat</span>
+        </a>
+    </li>
+
     <div class="topbar-divider d-none d-sm-block"></div>
 
     <!-- Nav Item - User Information -->

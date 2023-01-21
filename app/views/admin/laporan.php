@@ -16,13 +16,32 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid container-home d-flex flex-column justify-content-center align-items-center">
+                <div class="container-fluid container-home">
 
-                    <h2>Selamat Datang<?= (isset($_SESSION['petugas'])) ? ' '.$_SESSION['petugas']['username'] : '' ?>!</h2>
-                    <P>Di website Pengaduan Masyarakat</P>
-                    <?php if(!isset($_SESSION['petugas'])) { ?>
-                    <br><a href="#" class="btn btn-primary">Laporkan Masalah</a>
-                    <?php } ?>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Laporan</h1>
+                    </div>
+
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <th>No.</th>
+                        <th>Data Pengadu</th>
+                        <th>Keterangan Pengaduan</th>
+                        <th>Aksi</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <th>No.</th>
+                        <th>Data Pengadu</th>
+                        <th>Keterangan Pengaduan</th>
+                        <th>Aksi</th>
+                      </tfoot>
+                    </table>
 
                 </div>
                 <!-- /.container-fluid -->
