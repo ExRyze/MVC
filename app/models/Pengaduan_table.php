@@ -20,16 +20,41 @@ class Pengaduan_Table {
     return $this->db->rowCount();
   }
 
-  public function getBy() {
-    if($_POST['order'] === "Baru") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama ORDER BY `tgl_pengaduan` ASC");
-    } else if ($_POST['order'] === "Lama") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama ORDER BY `tgl_pengaduan` DESC");
+  public function getAll() {
+    if (!empty($_POST) && $_POST['status'] === "0") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else if (!empty($_POST) && $_POST['status'] === "proses") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else if (!empty($_POST) && $_POST['status'] === "selesai") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else if (!empty($_POST) && $_POST['status'] === "ditolak") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama ORDER BY `status`");
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` ORDER BY `tgl_pengaduan` DESC");
+    }
+    if(!empty($_POST) && $_POST['status'] != "") {
+      $this->db->bind("status", $_POST['status']);
+    }
+    return $this->db->resultAll();
+  }
+
+  public function getBy() {
+    if ($_POST['status'] === "0") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else if ($_POST['status'] === "proses") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else if ($_POST['status'] === "selesai") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else if ($_POST['status'] === "ditolak") {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+    } else {
+      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama ORDER BY `tgl_pengaduan` DESC");
     }
     $this->db->bind("nik", intval($_POST['nik']));
     $this->db->bind("nama", $_POST['nama']);
+    if($_POST['status'] != "") {
+      $this->db->bind("status", $_POST['status']);
+    }
     return $this->db->resultAll();
   }
 }

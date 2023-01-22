@@ -48,9 +48,9 @@ class Lapor extends Controller {
 
   public function search() {
     $data['page'] = "Cari Pengaduan";
-    if(isset($_POST['nik'])) {
+    if(!empty($_POST['nik']) && !empty($_POST['nama'])) {
       $data['laporan'] = $this->model('Pengaduan')->getBy();
-      if(empty($data['laporan'])) {Flasher::setMessage("Data tidak ditemukan", "alert-warning col-12");}
+      if(empty($data['laporan'])) {Flasher::setMessage("Data tidak ditemukan!", "alert-warning col-12");}
     }
     return $this->view('laporan', $data);
   }

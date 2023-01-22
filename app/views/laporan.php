@@ -33,11 +33,13 @@
                         <input class="form-control" type="text" name="nama" id="nama" placeholder="Nama">
                       </div>
                       <div class="mx-2">
-                        <label for="order">Order By:</label>
-                        <select class="custom-select" name="order" id="order">
-                          <option value="Baru">Baru</option>
-                          <option value="Lama">Lama</option>
-                          <option value="Status">Status</option>
+                        <label for="status">Filter:</label>
+                        <select class="custom-select" name="status" id="status">
+                          <option value="" selected>--</option>
+                          <option value="0">Belum ditindaklanjuti</option>
+                          <option value="proses">Sedang diproses</option>
+                          <option value="selesai">Telah selesai</option>
+                          <option value="ditolak">Laporan ditolak</option>
                         </select>
                       </div>
                       <button type="submit" class="btn btn-primary ml-2">Search</button>
