@@ -22,7 +22,7 @@ class Lapor extends Controller {
     if(strlen((string)$_POST['subject']) > 125 ) {
       Flasher::setMessage("Subject terlalu panjang!", "alert-warning");
       return Functions::back();}
-    if(!is_numeric($_POST['telp']) || strlen((string)$_POST['subject']) > 13) {
+    if(!is_numeric($_POST['telp']) || strlen((string)$_POST['telp']) > 13) {
       Flasher::setMessage("Format Telepon salah!", "alert-warning");
       return Functions::back();}
     if(!str_contains($_FILES['image']['type'], "image/")) {

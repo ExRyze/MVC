@@ -59,7 +59,19 @@
 
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link" href="<?= BASE_URL ?>/admin/laporan" role="button">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pengaduan Masyarakat</span>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Masyarakat</span>
+        </a>
+    </li>
+
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link" href="<?= BASE_URL ?>/admin/laporan" role="button">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pengaduan</span>
+        </a>
+    </li>
+
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link" href="<?= BASE_URL ?>/admin/petugas" role="button">
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Petugas</span>
         </a>
     </li>
 
