@@ -21,7 +21,7 @@
                     <h2>Selamat Datang<?= (isset($_SESSION['petugas'])) ? ' '.$_SESSION['petugas']['username'] : '' ?>!</h2>
                     <P>Di website Pengaduan Masyarakat</P>
                     <?php if(!isset($_SESSION['petugas'])) { ?>
-                    <br><a href="#" class="btn btn-primary">Laporkan Masalah</a>
+                    <br><a href="<?= BASE_URL ?>/lapor" class="btn btn-primary">Laporkan Masalah</a>
                     <?php } ?>
 
                 </div>

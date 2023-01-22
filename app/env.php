@@ -16,5 +16,6 @@ define('FOOTER', COMPONENTS.'/footer.php');
 
 define('CSS', PUBLIC_URL.'/css');
 define('IMG', PUBLIC_URL.'/img');
+define('LAPORAN', IMG.'/laporan');
 define('JS', PUBLIC_URL.'/js');
 define('VENDOR', PUBLIC_URL.'/vendor');

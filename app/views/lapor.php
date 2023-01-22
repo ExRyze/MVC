@@ -38,6 +38,10 @@
                                 <input type="tel" name="telp" id="telp" class="form-control" required placeholder="No. Telepon">
                             </div>
                             <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" name="subject" id="subject" class="form-control" required placeholder="Subject">
+                            </div>
+                            <div class="form-group">
                                 <label for="image">Image</label>
                                 <input type="file" class="col-12 p-0" id="image" name="image" required>
                             </div>

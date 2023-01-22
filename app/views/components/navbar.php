@@ -46,7 +46,7 @@
     </li>
 
     <li class="nav-item dropdown no-arrow">
-        <a class="nav-link" href="<?= BASE_URL ?>/lapor" role="button">
+        <a class="nav-link" href="<?= BASE_URL ?>/lapor/search" role="button">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Cari Pengaduan</span>
         </a>
     </li>
