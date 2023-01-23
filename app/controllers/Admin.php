@@ -54,48 +54,11 @@ class Admin extends Controller {
     return $this->view('admin/petugas', $data);
   }
 
-  public function add() {
+  public function masyarakat() {
     Middleware::auth();
-    if(strlen((string)$_POST['nama']) > 35 ) {
-      Flasher::setMessage("Nama terlalu panjang!", "alert-warning");
-      return Functions::back();}
-    if(strlen((string)$_POST['username']) > 25 ) {
-      Flasher::setMessage("Username terlalu panjang!", "alert-warning");
-      return Functions::back();}
-    if(!is_numeric($_POST['telp']) || strlen((string)$_POST['telp']) > 13) {
-      Flasher::setMessage("Format Telepon salah!", "alert-warning");
-      return Functions::back();}
-    if($this->model("Petugas")->validateNama()) {
-      Flasher::setMessage("Username telah digunakan!", "alert-warning");
-      return Functions::back();}
-    $this->model("Petugas")->store();
-    Flasher::setMessage("Petugas berhasil ditambahkan!", "alert-success");
-    return header("Location: ".BASE_URL."/admin/petugas");
+    $data['page'] = "Tabel Masyarakat";
+    $data['masyarakat'] = $this->model("Masyarakat")->getAll();
+    return $this->view('admin/masyarakat', $data);
   }
 
-  public function edit() {
-    Middleware::auth();
-    if(strlen((string)$_POST['nama']) > 35 ) {
-      Flasher::setMessage("Nama terlalu panjang!", "alert-warning");
-      return Functions::back();}
-    if(strlen((string)$_POST['username']) > 25 ) {
-      Flasher::setMessage("Username terlalu panjang!", "alert-warning");
-      return Functions::back();}
-    if(!is_numeric($_POST['telp']) || strlen((string)$_POST['telp']) > 13) {
-      Flasher::setMessage("Format Telepon salah!", "alert-warning");
-      return Functions::back();}
-    if($this->model("Petugas")->validateNama() && !$this->model("Petugas")->validateEditNama()) {
-      Flasher::setMessage("Username telah digunakan!", "alert-warning");
-      return Functions::back();}
-    $this->model("Petugas")->update();
-    Flasher::setMessage("Petugas berhasil ditambahkan!", "alert-success");
-    return header("Location: ".BASE_URL."/admin/petugas");
-  }
-
-  public function delete() {
-    Middleware::auth();
-    $this->model("Petugas")->delete();
-    Flasher::setMessage("Petugas berhasil dihapus!", "alert-success");
-    return header("Location: ".BASE_URL."/admin/petugas");
-  }
 }

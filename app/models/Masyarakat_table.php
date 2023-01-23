@@ -9,6 +9,11 @@ class Masyarakat_Table {
     $this->db = new Database;
   }
 
+  public function getAll() {
+    $this->db->query("SELECT * FROM {$this->table}");
+    return $this->db->resultAll();
+  }
+
   public function validateNIK() {
     $this->db->query("SELECT * FROM {$this->table} WHERE `nik` = :nik");
     $this->db->bind("nik", $_POST['nik']);
@@ -29,4 +34,19 @@ class Masyarakat_Table {
     $this->db->bind("telp", $_POST['telp']);
     return $this->db->rowCount();
   }
+
+  public function update() {
+    $this->db->query(("UPDATE {$this->table} SET`nama` = :nama, `telp` = :telp WHERE `nik` = :nik"));
+    $this->db->bind("nik", $_POST['nik']);
+    $this->db->bind("nama", $_POST['nama']);
+    $this->db->bind("telp", $_POST['telp']);
+    return $this->db->rowCount();
+  }
+
+  public function delete() {
+    $this->db->query("DELETE FROM {$this->table} WHERE `nik` = :nik");
+    $this->db->bind("nik", $_POST['nik']);
+    return $this->db->rowCount();
+  }
+
 }

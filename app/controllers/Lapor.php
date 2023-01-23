@@ -43,6 +43,7 @@ class Lapor extends Controller {
     $_FILES['image']['name'] = implode(".", $name);
     move_uploaded_file($_FILES['image']['tmp_name'], 'img/laporan/'.$_FILES['image']['name']);
     $this->model("Pengaduan")->store();
+    Flasher::setMessage("Berhasil melaporkan pengaduan, silahkan tunggu tanggapan dari petugas!", "alert-success");
     return header("Location: ".BASE_URL."/lapor");
   }
 

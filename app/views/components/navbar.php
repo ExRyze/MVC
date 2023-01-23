@@ -58,7 +58,7 @@
     </li>
 
     <li class="nav-item dropdown no-arrow">
-        <a class="nav-link" href="<?= BASE_URL ?>/admin/laporan" role="button">
+        <a class="nav-link" href="<?= BASE_URL ?>/admin/masyarakat" role="button">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">Masyarakat</span>
         </a>
     </li>
