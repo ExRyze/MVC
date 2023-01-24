@@ -35,8 +35,8 @@
                       <div class="mx-2">
                         <label for="status">Filter:</label>
                         <select class="custom-select" name="status" id="status">
-                          <option value="" <?= (empty($_POST['status']) && $_POST['status'] != "0")? "selected" : '' ?>>--</option>
-                          <option value="0" <?= (empty($_POST['status']) && $_POST['status'] === "0")? "selected" : '' ?>>Belum ditindaklanjuti</option>
+                          <option value="" <?= (!isset($_POST['status'])) ? "selected" : '' ?>>--</option>
+                          <option value="0" <?= (isset($_POST['status'])) ? (($_POST['status'] === "0")? "selected" : '') : '' ?>>Belum ditindaklanjuti</option>
                           <option value="proses" <?= (!empty($_POST['status']) && $_POST['status'] === "proses")? "selected" : '' ?>>Dalam proses</option>
                           <option value="selesai" <?= (!empty($_POST['status']) && $_POST['status'] === "selesai")? "selected" : '' ?>>Telah selesai</option>
                           <option value="ditolak" <?= (!empty($_POST['status']) && $_POST['status'] === "ditolak")? "selected" : '' ?>>Laporan ditolak</option>
@@ -118,21 +118,25 @@
                   </div>
                 </div>
                 <?php if(isset($_SESSION['petugas'])) { ?>
-                <form class="modal-footer justify-content-start">
+                <form class="modal-footer justify-content-start" method="post" action="">
                   <h5 class="modal-title text-left">Tanggapan</h5>
-                  <?php if(isset($laporan['id_tanggapan'])) { ?> <input type="hidden" name="id_tanggapan" value="<?= $laporan['id_pengaduan'] ?>"> <?php } ?>
+                  <?php if(isset($laporan['id_tanggapan'])) { ?> <input type="hidden" name="id_tanggapan" value="<?= $laporan['id_tanggapan'] ?>"> <?php } ?>
                   <input type="hidden" name="id_pengaduan" value="<?= $laporan['id_pengaduan'] ?>">
-                  <input type="hidden" name="id_petugas" value="<?= $_SESSION['petugas']['id_petugas'] ?>">
-                  <textarea name="tanggapan" id="tanggapan" class="col-12" rows="10"></textarea>
+                  <textarea name="tanggapan" id="tanggapan" class="col-12" rows="10"><?= (isset($laporan['id_tanggapan'])) ? $laporan['tanggapan'] : '' ?></textarea>
                   <div class="col-12 d-flex flex-wrap justify-content-end">
-                    <button type="submit" class="btn btn-danger mx-2">Tolak</button>
-                    <button type="submit" class="btn btn-warning mx-2">Proses</button>
-                    <button type="submit" class="btn btn-success mx-2">Selesai</button>
+                    <input type="submit" class="btn btn-danger mx-2" name="submit" value="Tolak">
+                    <input type="submit" class="btn btn-warning mx-2" name="submit" value="Proses">
+                    <input type="submit" class="btn btn-success mx-2" name="submit" value="Selesai">
+                    <input type="submit" class="btn btn-info mx-2" name="submit" value="Belum ditindaklanjuti">
                   </div>
                 </form>
                 <?php } else { ?>
-
-                <?php } ?>
+                  <?php if(isset($laporan['id_tanggapan'])) { ?>
+                  <div class="modal-footer justify-content-start">
+                    <h5 class="modal-title text-left col-12">Tanggapan</h5>
+                    <p class="col-11 mx-auto"><?= $laporan['tanggapan'] ?></p>
+                  </div>
+                <?php }} ?>
             </div>
         </div>
       </div>

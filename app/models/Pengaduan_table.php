@@ -22,15 +22,15 @@ class Pengaduan_Table {
 
   public function getAll() {
     if (!empty($_POST) && $_POST['status'] === "0") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else if (!empty($_POST) && $_POST['status'] === "proses") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else if (!empty($_POST) && $_POST['status'] === "selesai") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else if (!empty($_POST) && $_POST['status'] === "ditolak") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` ORDER BY `tgl_pengaduan` DESC");
     }
     if(!empty($_POST) && $_POST['status'] != "") {
       $this->db->bind("status", $_POST['status']);
@@ -40,15 +40,15 @@ class Pengaduan_Table {
 
   public function getBy() {
     if ($_POST['status'] === "0") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else if ($_POST['status'] === "proses") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else if ($_POST['status'] === "selesai") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else if ($_POST['status'] === "ditolak") {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama && `status` = :status ORDER BY `tgl_pengaduan` DESC");
     } else {
-      $this->db->query("SELECT * FROM {$this->table}, `masyarakat` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama ORDER BY `tgl_pengaduan` DESC");
+      $this->db->query("SELECT {$this->table}.*, `masyarakat`.*, `tanggapan`.`id_tanggapan`, `tanggapan`.`tgl_tanggapan`, `tanggapan`.`tanggapan`, `tanggapan`.`id_petugas` FROM {$this->table}, `masyarakat` LEFT OUTER JOIN `tanggapan` ON `id_pengaduan` WHERE {$this->table}.`nik` = `masyarakat`.`nik` && {$this->table}.`nik` = :nik && `nama` = :nama ORDER BY `tgl_pengaduan` DESC");
     }
     $this->db->bind("nik", intval($_POST['nik']));
     $this->db->bind("nama", $_POST['nama']);
@@ -57,4 +57,12 @@ class Pengaduan_Table {
     }
     return $this->db->resultAll();
   }
+
+  public function status($status) {
+    $this->db->query("UPDATE {$this->table} SET `status` = :status WHERE `id_pengaduan` = :id_pengaduan");
+    $this->db->bind("status", $status);
+    $this->db->bind("id_pengaduan", $_SESSION['tanggapan']['id_pengaduan']);
+    return $this->db->rowCount();
+  }
+
 }
