@@ -34,6 +34,13 @@ class Admin extends Controller {
     return header("Location: ".BASE_URL."/admin/login");
   }
 
+  public function masyarakat() {
+    Middleware::auth();
+    $data['page'] = "Tabel Masyarakat";
+    $data['masyarakat'] = $this->model("Masyarakat")->getAll();
+    return $this->view('admin/masyarakat', $data);
+  }
+
   public function laporan() {
     Middleware::auth();
     $data['page'] = "Pengaduan";
@@ -52,13 +59,6 @@ class Admin extends Controller {
     $data['page'] = "Tabel Petugas";
     $data['petugas'] = $this->model("Petugas")->getAll();
     return $this->view('admin/petugas', $data);
-  }
-
-  public function masyarakat() {
-    Middleware::auth();
-    $data['page'] = "Tabel Masyarakat";
-    $data['masyarakat'] = $this->model("Masyarakat")->getAll();
-    return $this->view('admin/masyarakat', $data);
   }
 
 }
