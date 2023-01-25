@@ -36,7 +36,7 @@ class Masyarakat_Table {
   }
 
   public function update() {
-    $this->db->query(("UPDATE {$this->table} SET`nama` = :nama, `telp` = :telp WHERE `nik` = :nik"));
+    $this->db->query(("UPDATE {$this->table} SET `nama` = :nama, `telp` = :telp WHERE `nik` = :nik"));
     $this->db->bind("nik", $_POST['nik']);
     $this->db->bind("nama", $_POST['nama']);
     $this->db->bind("telp", $_POST['telp']);

@@ -35,7 +35,6 @@
                       <div class="mx-2">
                         <label for="status">Filter:</label>
                         <select class="custom-select" name="status" id="status">
-                          <option value="" <?= (!isset($_POST['status'])) ? "selected" : '' ?>>--</option>
                           <option value="0" <?= (isset($_POST['status'])) ? (($_POST['status'] === "0")? "selected" : '') : '' ?>>Belum ditindaklanjuti</option>
                           <option value="proses" <?= (!empty($_POST['status']) && $_POST['status'] === "proses")? "selected" : '' ?>>Dalam proses</option>
                           <option value="selesai" <?= (!empty($_POST['status']) && $_POST['status'] === "selesai")? "selected" : '' ?>>Telah selesai</option>
@@ -57,7 +56,7 @@
                                 <div class="col-8 pl-4">
                                   <h3 class="m-0"><?= $laporan['judul_laporan'] ?></h3>
                                   <p class="mb-3">
-                                    <small>Uploaded by <strong><?= $laporan['nama'] ?></strong>, <?= date("d F Y", strtotime($laporan['tgl_pengaduan'])) ?><br>
+                                    <small>Uploaded by <strong><?= $laporan['nama'] ?></strong>, <?= date("d F Y h:i:s A", strtotime($laporan['tgl_pengaduan'])) ?><br>
                                     Status: 
                                     <?= ($laporan['status'] === "proses") ? "<strong class='text-warning'>Dalam proses</strong>" : (($laporan['status'] === "ditolak") ? "<strong class='text-danger'>Ditolak</strong>" : (($laporan['status'] === "selesai") ? "<strong class='text-success'>Selesai</strong>" : "<strong>Belum ditindaklanjuti</strong>")) ?>
                                     </small></p>
@@ -101,7 +100,7 @@
                 <div class="modal-header">
                     <div class="column">
                       <h5 class="modal-title" id="exampleModalLabel"><?= $laporan['judul_laporan'] ?></h5>
-                      <p class="m-0"><small>Uploaded by <strong><?= $laporan['nama'] ?></strong>, <?= date("d F Y", strtotime($laporan['tgl_pengaduan'])) ?><br>
+                      <p class="m-0"><small>Uploaded by <strong><?= $laporan['nama'] ?></strong>, <?= date("d F Y h:i:s A", strtotime($laporan['tgl_pengaduan'])) ?><br>
                       Status: 
                       <?= ($laporan['status'] === "proses") ? "<strong class='text-warning'>Dalam proses</strong>" : (($laporan['status'] === "ditolak") ? "<strong class='text-danger'>Ditolak</strong>" : (($laporan['status'] === "selesai") ? "<strong class='text-success'>Selesai</strong>" : "<strong>Belum ditindaklanjuti</strong>")) ?></small></p>
                     </div>
@@ -119,7 +118,7 @@
                 </div>
                 <?php if(isset($_SESSION['petugas'])) { ?>
                 <form class="modal-footer justify-content-start" method="post" action="">
-                  <h5 class="modal-title text-left">Tanggapan</h5>
+                  <h5 class="modal-title text-left col-12">Tanggapan <?php if(isset($laporan['id_tanggapan'])) { ?><br> <p class="mb-3"><small>Uploaded by <strong><?= $laporan['petugas_username'] ?> / <?= $laporan['petugas_telp'] ?></strong>, <?= date("d F Y h:i:s A", strtotime($laporan['tgl_pengaduan'])) ?></small></p><?php } ?></h5>
                   <?php if(isset($laporan['id_tanggapan'])) { ?> <input type="hidden" name="id_tanggapan" value="<?= $laporan['id_tanggapan'] ?>"> <?php } ?>
                   <input type="hidden" name="id_pengaduan" value="<?= $laporan['id_pengaduan'] ?>">
                   <textarea name="tanggapan" id="tanggapan" class="col-12" rows="10"><?= (isset($laporan['id_tanggapan'])) ? $laporan['tanggapan'] : '' ?></textarea>
@@ -133,7 +132,8 @@
                 <?php } else { ?>
                   <?php if(isset($laporan['id_tanggapan'])) { ?>
                   <div class="modal-footer justify-content-start">
-                    <h5 class="modal-title text-left col-12">Tanggapan</h5>
+                    <h5 class="modal-title text-left col-12">Tanggapan <br> <p class="mb-3">
+                      <small>Uploaded by <strong><?= $laporan['petugas_username'] ?> / <?= $laporan['petugas_telp'] ?></strong>, <?= date("d F Y h:i:s A", strtotime($laporan['tgl_pengaduan'])) ?></small></p></h5>
                     <p class="col-11 mx-auto"><?= $laporan['tanggapan'] ?></p>
                   </div>
                 <?php }} ?>

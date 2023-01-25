@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 24, 2023 at 03:53 PM
+-- Generation Time: Jan 25, 2023 at 01:36 PM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -48,7 +48,7 @@ INSERT INTO `masyarakat` (`nik`, `nama`, `telp`) VALUES
 
 CREATE TABLE `pengaduan` (
   `id_pengaduan` int(11) NOT NULL,
-  `tgl_pengaduan` date NOT NULL,
+  `tgl_pengaduan` timestamp NOT NULL,
   `nik` char(16) NOT NULL,
   `judul_laporan` varchar(125) NOT NULL,
   `isi_laporan` text NOT NULL,
@@ -61,7 +61,8 @@ CREATE TABLE `pengaduan` (
 --
 
 INSERT INTO `pengaduan` (`id_pengaduan`, `tgl_pengaduan`, `nik`, `judul_laporan`, `isi_laporan`, `foto`, `status`) VALUES
-(2, '2023-01-22', '5171012506050005', 'IDK', 'IDK', '295d67af3336fcdb76ff22c699afe5fb91.jpg', 'selesai');
+(2, '2023-01-21 16:00:00', '5171012506050005', 'IDK', 'IDK', '295d67af3336fcdb76ff22c699afe5fb91.jpg', 'selesai'),
+(3, '2023-01-24 16:00:00', '5171012506050005', 'IDK', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam velit voluptates distinctio excepturi dolorem mollitia, quaerat vero possimus fugit molestias sunt natus libero veniam, porro ratione cumque, itaque quidem placeat?', 'ee4b02601022f4e3ae063d07e8f072e444.png', '0');
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,7 @@ INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`, `te
 CREATE TABLE `tanggapan` (
   `id_tanggapan` int(11) NOT NULL,
   `id_pengaduan` int(11) NOT NULL,
-  `tgl_tanggapan` date NOT NULL,
+  `tgl_tanggapan` timestamp NOT NULL,
   `tanggapan` text NOT NULL,
   `id_petugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -104,7 +105,7 @@ CREATE TABLE `tanggapan` (
 --
 
 INSERT INTO `tanggapan` (`id_tanggapan`, `id_pengaduan`, `tgl_tanggapan`, `tanggapan`, `id_petugas`) VALUES
-(6, 2, '2023-01-24', 'IDK too', 1);
+(6, 2, '2023-01-23 16:00:00', 'IDK too', 1);
 
 --
 -- Indexes for dumped tables
@@ -145,7 +146,7 @@ ALTER TABLE `tanggapan`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pengaduan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `petugas`
