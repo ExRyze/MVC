@@ -1,9 +1,0 @@
-<?php 
-
-require_once "env.php";
-require_once "core/App.php";
-require_once "core/Middleware.php";
-require_once "core/Functions.php";
-require_once "core/Flasher.php";
-require_once "core/Controllers.php";
-require_once "core/Database.php";
