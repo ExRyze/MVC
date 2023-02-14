@@ -2,6 +2,10 @@
 
 class Register extends Controllers {
 
+  public function __construct() {
+    Middleware::noAuth();
+  }
+
   public function index() {
     return $this->view('register');
   }

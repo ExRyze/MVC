@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pembayaran SPP - Login Siswa</title>
+    <title>Pembayaran SPP - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?=VENDOR?>/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,10 +42,10 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <?php Flasher::flasher() ?>
-                                    <form class="user" method="post" action="<?= BASE_URL ?>/siswa/clogin">
+                                    <form class="user" method="post" action="<?= BASE_URL ?>/login/clogin">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                name="nisn" placeholder="Enter NISN..." required>
+                                                name="username" placeholder="Username / NISN" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"

@@ -15,14 +15,14 @@ class Petugas_table {
   }
   
   public function validateLogin() {
-    $this->db->query("SELECT * FROM {$this->table} WHERE `username` = :username && `password` = :password");
+    $this->db->query("CALL getPetugas(:username, :password)");
     $this->db->bind('username', $_POST['username']);
     $this->db->bind('password', $_POST['password']);
     return $this->db->rowCount();
   }
 
   public function login() {
-    $this->db->query("SELECT * FROM {$this->table} WHERE `username` = :username && `password` = :password");
+    $this->db->query("CALL getPetugas(:username, :password)");
     $this->db->bind('username', $_POST['username']);
     $this->db->bind('password', $_POST['password']);
     return $this->db->result();

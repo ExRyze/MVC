@@ -55,7 +55,7 @@
                     </div>
 
                     <form action="<?= BASE_URL ?>/petugas/pembayaran" method="post" class="col-6 mx-auto card card-body entriPembayaran">
-                        <input type="hidden" name="id_petugas" value="<?= $_SESSION['user']['id_petugas'] ?>">
+                        <input type="hidden" name="id_petugas" value="<?= $_SESSION['ExSPP']['user']['id_petugas'] ?>">
                         <div class="form-group">
                             <label for="">Siswa</label>
                             <div class="row" style="gap: 1rem;">

@@ -16,13 +16,13 @@ class Pembayaran_table {
 
   public function getHistoryEntri() {
     $this->db->query("SELECT {$this->table}.*, `siswa`.`nis`, `siswa`.`nama`, `petugas`.`username`, `spp`.* FROM {$this->table}, `petugas`, `siswa`, `spp` WHERE {$this->table}.`id_petugas` = `petugas`.`id_petugas` && {$this->table}.`nisn` = `siswa`.`nisn` && {$this->table}.`id_spp` = `siswa`.`id_spp` && `siswa`.`id_spp` = `spp`.`id_spp` && `petugas`.`id_petugas` = :id");
-    $this->db->bind('id', $_SESSION['user']['id_petugas']);
+    $this->db->bind('id', $_SESSION['ExSPP']['user']['id_petugas']);
     return $this->db->resultAll();
   }
 
   public function getHistory() {
     $this->db->query("SELECT {$this->table}.*, `siswa`.`nis`, `siswa`.`nama`, `petugas`.`username`, `spp`.* FROM {$this->table}, `petugas`, `siswa`, `spp` WHERE {$this->table}.`id_petugas` = `petugas`.`id_petugas` && {$this->table}.`nisn` = `siswa`.`nisn` && {$this->table}.`id_spp` = `siswa`.`id_spp` && `siswa`.`id_spp` = `spp`.`id_spp` && `siswa`.`nisn` = :id");
-    $this->db->bind('id', $_SESSION['user']['nisn']);
+    $this->db->bind('id', $_SESSION['ExSPP']['user']['nisn']);
     return $this->db->resultAll();
   }
 

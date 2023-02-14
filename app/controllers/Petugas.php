@@ -10,20 +10,6 @@ class Petugas extends Controllers {
     return  $this->view('petugas/index', $data);
   }
 
-  public function login() {
-    return $this->view('petugas/login');
-  }
-
-  public function clogin() {
-    if($this->model('Petugas')->validateLogin()) {
-      $_SESSION['user'] = $this->model('Petugas')->login();
-      Flasher::setFlasher("Berhasil Login", "alert alert-success");
-      return header("Location: ".BASE_URL."/petugas");
-    }
-    Flasher::setFlasher("Terjadi kesalahan!", "alert alert-danger");
-    return Functions::back();
-  }
-
   public function entri() {
     Middleware::level(('admin' || 'petugas'));
     $data['daftar_siswa'] = $this->model('Siswa')->list();
