@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 15, 2023 at 09:47 AM
+-- Generation Time: Feb 17, 2023 at 12:56 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `mvc`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPetugas` (IN `in_username` VARCHAR(25), IN `in_password` VARCHAR(32))   BEGIN
+SELECT * FROM `petugas` WHERE `petugas`.`username` = in_username && `petugas`.`password` = in_password;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSiswa` (IN `in_nisn` CHAR(10), IN `in_password` VARCHAR(32))   BEGIN
+SELECT * FROM `siswa` WHERE `siswa`.`nisn` = in_nisn && `siswa`.`password` = in_password;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -202,7 +216,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -220,7 +234,7 @@ ALTER TABLE `petugas`
 -- AUTO_INCREMENT for table `spp`
 --
 ALTER TABLE `spp`
-  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
