@@ -51,38 +51,44 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addKelas">Tambah Kelas</button>
-                    <table class="col-12 table table-hover table-bordered text-center">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Nama Kelas</th>
-                          <th>Kompetensi Keahlian</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-left">
-                        <?php foreach($data['kelas'] as $i => $kelas) { ?>
-                          <tr>
-                            <td><?= $i+1 ?></td>
-                            <td><?= $kelas['nama_kelas'] ?></td>
-                            <td><?= $kelas['kompetensi_keahlian'] ?></td>
-                            <td>
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editKelas<?= $kelas['id_kelas'] ?>">Edit</button>
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas<?= $kelas['id_kelas'] ?>">Hapus</button>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                        <th>No.</th>
-                          <th>Nama Kelas</th>
-                          <th>Kompetensi Keahlian</th>
-                          <th>Action</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                    <button class="btn btn-success mb-4" type="button" data-toggle="modal" data-target="#addKelas">Tambah Kelas</button>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="col-12 table table-hover table-bordered text-center" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Kelas</th>
+                                            <th>Kompetensi Keahlian</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Kelas</th>
+                                            <th>Kompetensi Keahlian</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody class="text-left">
+                                        <?php foreach($data['kelas'] as $i => $kelas) { ?>
+                                        <tr>
+                                            <td><?= $i+1 ?></td>
+                                            <td><?= $kelas['nama_kelas'] ?></td>
+                                            <td><?= $kelas['kompetensi_keahlian'] ?></td>
+                                            <td>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editKelas<?= $kelas['id_kelas'] ?>">Edit</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas<?= $kelas['id_kelas'] ?>">Hapus</button>
+                                            </td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -199,9 +205,16 @@
 
     <!-- Core plugin JavaScript-->
     <script src="<?= VENDOR ?>/jquery-easing/jquery.easing.min.js"></script>
-
+    
     <!-- Custom scripts for all pages-->
     <script src="<?= JS ?>/sb-admin-2.min.js"></script>
+    
+    <!-- Page level plugins -->
+    <script src="<?= VENDOR ?>/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= JS ?>/demo/datatables-demo.js"></script>
 
 </body>
 

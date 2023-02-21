@@ -51,44 +51,50 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addPetugas">Tambah Petugas</button>
-                    <table class="col-12 table table-hover table-bordered text-center">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Username</th>
-                          <th>Password</th>
-                          <th>Nama_petugas</th>
-                          <th>Level</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-left">
-                        <?php foreach($data['petugas'] as $i => $petugas) { ?>
-                          <tr>
-                            <td><?= $i+1 ?></td>
-                            <td><?= $petugas['username'] ?></td>
-                            <td><?= $petugas['nama_petugas'] ?></td>
-                            <td><?= $petugas['password'] ?></td>
-                            <td><?= $petugas['level'] ?></td>
-                            <td>
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPetugas<?= $petugas['id_petugas'] ?>">Edit</button>
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePetugas<?= $petugas['id_petugas'] ?>">Hapus</button>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>No.</th>
-                          <th>Username</th>
-                          <th>Password</th>
-                          <th>Nama_petugas</th>
-                          <th>Level</th>
-                          <th>Action</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                    <button class="btn btn-success mb-3" type="button" data-toggle="modal" data-target="#addPetugas">Tambah Petugas</button>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="col-12 table table-hover table-bordered text-center" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>Nama_petugas</th>
+                                        <th>Level</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>Nama_petugas</th>
+                                        <th>Level</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody class="text-left">
+                                    <?php foreach($data['petugas'] as $i => $petugas) { ?>
+                                    <tr>
+                                        <td><?= $i+1 ?></td>
+                                        <td><?= $petugas['username'] ?></td>
+                                        <td><?= $petugas['password'] ?></td>
+                                        <td><?= $petugas['nama_petugas'] ?></td>
+                                        <td><?= $petugas['level'] ?></td>
+                                        <td>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPetugas<?= $petugas['id_petugas'] ?>">Edit</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePetugas<?= $petugas['id_petugas'] ?>">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -231,6 +237,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= JS ?>/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?= VENDOR ?>/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= JS ?>/demo/datatables-demo.js"></script>
 
 </body>
 

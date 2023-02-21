@@ -51,50 +51,56 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-                    <a class="btn btn-success" href="<?= BASE_URL ?>/petugas/entri">Tambah Pembayaran</a>
-                    <table class="col-12 table table-hover table-bordered text-center">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Petugas</th>
-                          <th>Siswa</th>
-                          <th>Tanggal Bayar</th>
-                          <th>SPP</th>
-                          <th>Jumlah Pembayaran</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-left">
-                        <?php foreach($data['pembayaran'] as $i => $pembayaran) { ?>
-                          <tr>
-                            <td><?= $i+1 ?></td>
-                            <td><?= $pembayaran['username'] ?></td>
-                            <td><?= $pembayaran['nama'] ?></td>
-                            <td><?= date("d F Y", strtotime($pembayaran['tgl_bayar'])) ?></td>
-                            <td>
-                              <strong>Tahun :</strong> <?= $pembayaran['tahun'] ?> <br>
-                              <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 2, ',', '.') ?>
-                            </td>
-                            <td><?= number_format($pembayaran['jumlah_bayar'], 2, ',', '.') ?></td>
-                            <td>
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPembayaran<?= $pembayaran['id_pembayaran'] ?>">Edit</button>
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePembayaran<?= $pembayaran['id_pembayaran'] ?>">Hapus</button>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                        <th>No.</th>
-                          <th>Petugas</th>
-                          <th>Siswa</th>
-                          <th>Tanggal Bayar</th>
-                          <th>SPP</th>
-                          <th>Jumlah Pembayaran</th>
-                          <th>Action</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                    <a class="btn btn-success mb-3" href="<?= BASE_URL ?>/petugas/entri">Tambah Pembayaran</a>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="col-12 table table-hover table-bordered text-center" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Petugas</th>
+                                        <th>Siswa</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>SPP</th>
+                                        <th>Jumlah Pembayaran</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Petugas</th>
+                                        <th>Siswa</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>SPP</th>
+                                        <th>Jumlah Pembayaran</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody class="text-left">
+                                    <?php foreach($data['pembayaran'] as $i => $pembayaran) { ?>
+                                    <tr>
+                                        <td><?= $i+1 ?></td>
+                                        <td><?= $pembayaran['username'] ?></td>
+                                        <td><?= $pembayaran['nama'] ?></td>
+                                        <td><?= date("d F Y", strtotime($pembayaran['tgl_bayar'])) ?></td>
+                                        <td>
+                                        <strong>Tahun :</strong> <?= $pembayaran['tahun'] ?> <br>
+                                        <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 2, ',', '.') ?>
+                                        </td>
+                                        <td><?= number_format($pembayaran['jumlah_bayar'], 2, ',', '.') ?></td>
+                                        <td>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPembayaran<?= $pembayaran['id_pembayaran'] ?>">Edit</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePembayaran<?= $pembayaran['id_pembayaran'] ?>">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -195,6 +201,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= JS ?>/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?= VENDOR ?>/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= JS ?>/demo/datatables-demo.js"></script>
 
 </body>
 

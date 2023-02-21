@@ -51,53 +51,59 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addSiswa">Tambah Siswa</button>
-                    <table class="col-12 table table-hover table-bordered text-center">
-                      <thead>
-                        <tr>
-                          <th>NISN</th>
-                          <th>NIS</th>
-                          <th>Nama</th>
-                          <th>Kelas</th>
-                          <th>Alamat</th>
-                          <th>No Telepon</th>
-                          <th>SPP</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-left">
-                        <?php foreach($data['siswa'] as $siswa) { ?>
-                          <tr>
-                            <td><?= $siswa['nisn'] ?></td>
-                            <td><?= $siswa['nis'] ?></td>
-                            <td><?= $siswa['nama'] ?></td>
-                            <td><?= $siswa['nama_kelas'] ?></td>
-                            <td><?= $siswa['alamat'] ?></td>
-                            <td><?= $siswa['no_telp'] ?></td>
-                            <td>
-                              <strong>Tahun :</strong> <?= $siswa['tahun'] ?> <br>
-                              <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 2, ',', '.') ?>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSiswa<?= $siswa['nisn'] ?>">Edit</button>
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSiswa<?= $siswa['nisn'] ?>">Hapus</button>
-                            </td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>NISN</th>
-                          <th>NIS</th>
-                          <th>Nama</th>
-                          <th>Kelas</th>
-                          <th>Alamat</th>
-                          <th>No Telepon</th>
-                          <th>SPP</th>
-                          <th>Action</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                    <button class="btn btn-success mb-3" type="button" data-toggle="modal" data-target="#addSiswa">Tambah Siswa</button>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="col-12 table table-hover table-bordered text-center" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>NISN</th>
+                                        <th>NIS</th>
+                                        <th>Nama</th>
+                                        <th>Kelas</th>
+                                        <th>Alamat</th>
+                                        <th>No Telepon</th>
+                                        <th>SPP</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>NISN</th>
+                                        <th>NIS</th>
+                                        <th>Nama</th>
+                                        <th>Kelas</th>
+                                        <th>Alamat</th>
+                                        <th>No Telepon</th>
+                                        <th>SPP</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody class="text-left">
+                                    <?php foreach($data['siswa'] as $siswa) { ?>
+                                    <tr>
+                                        <td><?= $siswa['nisn'] ?></td>
+                                        <td><?= $siswa['nis'] ?></td>
+                                        <td><?= $siswa['nama'] ?></td>
+                                        <td><?= $siswa['nama_kelas'] ?></td>
+                                        <td><?= $siswa['alamat'] ?></td>
+                                        <td><?= $siswa['no_telp'] ?></td>
+                                        <td>
+                                        <strong>Tahun :</strong> <?= $siswa['tahun'] ?> <br>
+                                        <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 2, ',', '.') ?>
+                                        </td>
+                                        <td>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSiswa<?= $siswa['nisn'] ?>">Edit</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSiswa<?= $siswa['nisn'] ?>">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -281,6 +287,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= JS ?>/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?= VENDOR ?>/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= JS ?>/demo/datatables-demo.js"></script>
 
 </body>
 
