@@ -54,9 +54,9 @@
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
-                    <form action="<?= BASE_URL ?>/petugas/pembayaran" method="post" class="col-6 mx-auto card card-body entriPembayaran">
+                    <form action="" method="post" class="col-12 mx-auto card shadow mb-3 card-body entriPembayaran">
                         <input type="hidden" name="id_petugas" value="<?= $_SESSION['ExSPP']['user']['id_petugas'] ?>">
-                        <div class="form-group">
+                        <div class="form-group mb-0">
                             <label for="">Siswa</label>
                             <div class="row" style="gap: 1rem;">
                             <input type="text" class="form-control w-auto flex-fill" list="listSiswa" placeholder="Masukkan NISN siswa...">
@@ -67,6 +67,36 @@
 
                         </div>
                     </form>
+
+                    <div class="row">
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Body -->
+                                <div class="card-body d-flex flex-wrap">
+                                    <?php for($i=1; $i<=12; $i++) { ?>
+                                        <div class="col-xl-3 <?= ($i<=8)? 'mb-3' : ''; ?>">
+                                            <div class="card shadow">
+                                                <div class="card-body"></div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
