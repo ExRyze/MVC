@@ -45,7 +45,7 @@
                                     <form class="user" method="post" action="<?= BASE_URL ?>/login/clogin">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                name="username" placeholder="Username / NISN" required>
+                                                name="username" placeholder="Username / NIS" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"

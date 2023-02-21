@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 17, 2023 at 12:56 AM
+-- Generation Time: Feb 21, 2023 at 12:53 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -29,8 +29,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getPetugas` (IN `in_username` VARCH
 SELECT * FROM `petugas` WHERE `petugas`.`username` = in_username && `petugas`.`password` = in_password;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getSiswa` (IN `in_nisn` CHAR(10), IN `in_password` VARCHAR(32))   BEGIN
-SELECT * FROM `siswa` WHERE `siswa`.`nisn` = in_nisn && `siswa`.`password` = in_password;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSiswa` (IN `in_nis` CHAR(8), IN `in_password` VARCHAR(32))   BEGIN
+SELECT * FROM `siswa` WHERE `siswa`.`nis` = in_nis && `siswa`.`password` = in_password;
 END$$
 
 DELIMITER ;

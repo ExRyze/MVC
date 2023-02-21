@@ -15,15 +15,15 @@ class Siswa_table {
   }
 
   public function validateLogin() {
-    $this->db->query("CALL getSiswa(:nisn, :password)");
-    $this->db->bind('nisn', $_POST['username']);
+    $this->db->query("CALL getSiswa(:nis, :password)");
+    $this->db->bind('nis', $_POST['username']);
     $this->db->bind('password', $_POST['password']);
     return $this->db->rowCount();
   }
   
   public function login() {
-    $this->db->query("CALL getSiswa(:nisn, :password)");
-    $this->db->bind('nisn', $_POST['username']);
+    $this->db->query("CALL getSiswa(:nis, :password)");
+    $this->db->bind('nis', $_POST['username']);
     $this->db->bind('password', $_POST['password']);
     return $this->db->result();
   }
