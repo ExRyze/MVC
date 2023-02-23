@@ -18,11 +18,11 @@ class Middleware {
     Middleware::auth();
     if($level === "siswa") {
       if(isset($_SESSION['ExSPP']['user']['level'])) {
-        return Functions::back();
+        return Functions::redirect("petugas");
       }
     } else {
       if(isset($_SESSION['ExSPP']['user']['nisn'])) {
-        return Functions::back();}
+        return Functions::redirect("siswa");}
       if($_SESSION['ExSPP']['user']['level'] != $level) {
         return Functions::back();}
     }

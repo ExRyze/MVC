@@ -3,6 +3,9 @@
 class Pembayaran_table {
 
   private $table = 'pembayaran';
+  private $siswa = 'siswa';
+  private $petugas = 'petugas';
+  private $spp = 'spp';
   private $db;
 
   public function __construct() {
@@ -10,19 +13,26 @@ class Pembayaran_table {
   }
 
   public function getAll() {
-    $this->db->query("SELECT {$this->table}.*, `siswa`.`nis`, `siswa`.`nama`, `petugas`.`username`, `spp`.* FROM {$this->table}, `petugas`, `siswa`, `spp` WHERE {$this->table}.`id_petugas` = `petugas`.`id_petugas` && {$this->table}.`nisn` = `siswa`.`nisn` && {$this->table}.`id_spp` = `siswa`.`id_spp` && `siswa`.`id_spp` = `spp`.`id_spp`");
+    $this->db->query("SELECT {$this->table}.*, {$this->siswa}.`nis`, {$this->siswa}.`nama`, {$this->petugas}.`username`, {$this->spp}.* FROM {$this->table}, {$this->petugas}, {$this->siswa}, {$this->spp} WHERE {$this->table}.`id_petugas` = {$this->petugas}.`id_petugas` && {$this->table}.`nisn` = {$this->siswa}.`nisn` && {$this->table}.`id_spp` = {$this->siswa}.`id_spp` && {$this->siswa}.`id_spp` = {$this->spp}.`id_spp`");
     return $this->db->resultAll();
   }
 
   public function getHistoryEntri() {
-    $this->db->query("SELECT {$this->table}.*, `siswa`.`nis`, `siswa`.`nama`, `petugas`.`username`, `spp`.* FROM {$this->table}, `petugas`, `siswa`, `spp` WHERE {$this->table}.`id_petugas` = `petugas`.`id_petugas` && {$this->table}.`nisn` = `siswa`.`nisn` && {$this->table}.`id_spp` = `siswa`.`id_spp` && `siswa`.`id_spp` = `spp`.`id_spp` && `petugas`.`id_petugas` = :id");
+    $this->db->query("SELECT {$this->table}.*, {$this->siswa}.`nis`, {$this->siswa}.`nama`, {$this->petugas}.`username`, {$this->spp}.* FROM {$this->table}, {$this->petugas}, {$this->siswa}, {$this->spp} WHERE {$this->table}.`id_petugas` = {$this->petugas}.`id_petugas` && {$this->table}.`nisn` = {$this->siswa}.`nisn` && {$this->table}.`id_spp` = {$this->siswa}.`id_spp` && {$this->siswa}.`id_spp` = {$this->spp}.`id_spp` && {$this->petugas}.`id_petugas` = :id");
     $this->db->bind('id', $_SESSION['ExSPP']['user']['id_petugas']);
     return $this->db->resultAll();
   }
 
   public function getHistory() {
-    $this->db->query("SELECT {$this->table}.*, `siswa`.`nis`, `siswa`.`nama`, `petugas`.`username`, `spp`.* FROM {$this->table}, `petugas`, `siswa`, `spp` WHERE {$this->table}.`id_petugas` = `petugas`.`id_petugas` && {$this->table}.`nisn` = `siswa`.`nisn` && {$this->table}.`id_spp` = `siswa`.`id_spp` && `siswa`.`id_spp` = `spp`.`id_spp` && `siswa`.`nisn` = :id");
+    $this->db->query("SELECT {$this->table}.*, {$this->siswa}.`nis`, {$this->siswa}.`nama`, {$this->petugas}.`username`, {$this->spp}.* FROM {$this->table}, {$this->petugas}, {$this->siswa}, {$this->spp} WHERE {$this->table}.`id_petugas` = {$this->petugas}.`id_petugas` && {$this->table}.`nisn` = {$this->siswa}.`nisn` && {$this->table}.`id_spp` = {$this->siswa}.`id_spp` && {$this->siswa}.`id_spp` = {$this->spp}.`id_spp` && {$this->siswa}.`nisn` = :id");
     $this->db->bind('id', $_SESSION['ExSPP']['user']['nisn']);
+    return $this->db->resultAll();
+  }
+
+  public function siswa($nisn, $spp) {
+    $this->db->query("SELECT * FROM {$this->table} WHERE `nisn` = :nisn && `id_spp` = :spp ");
+    $this->db->bind('nisn', $nisn);
+    $this->db->bind('spp', $spp);
     return $this->db->resultAll();
   }
 

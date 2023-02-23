@@ -46,6 +46,7 @@
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelpetugas">Petugas</a>
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelpembayaran">Pembayaran</a>
                         <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelkelas">Kelas</a>
+                        <a class="collapse-item" href="<?= BASE_URL ?>/petugas/tabelspp">SPP</a>
                     </div>
                 </div>
             </li>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pembayaran SPP - Tabel Petugas</title>
+    <title>Pembayaran SPP - Tabel SPP</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= VENDOR ?>/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -50,13 +50,11 @@
                     <!-- Page Heading -->
                     <?php Flasher::flasher() ?>
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Tabel Petugas</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Tabel SPP</h1>
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-
-                    <button class="btn btn-success mb-3" type="button" data-toggle="modal" data-target="#addPetugas">Tambah Petugas</button>
-
+                    <button class="btn btn-success mb-3" type="button" data-toggle="modal" data-target="#addSPP">Tambah SPP</button>
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -64,23 +62,19 @@
                                 <thead>
                                     <tr>
                                         <th>Action</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Nama_petugas</th>
-                                        <th>Level</th>
+                                        <th>Tahun</th>
+                                        <th>Nominal</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Action</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Nama_petugas</th>
-                                        <th>Level</th>
+                                        <th>Tahun</th>
+                                        <th>Nominal</th>
                                     </tr>
                                 </tfoot>
                                 <tbody class="text-left">
-                                    <?php foreach($data['petugas'] as $petugas) { ?>
+                                    <?php foreach($data['SPP'] as $SPP) { ?>
                                     <tr>
                                         <td>
                                         <div class="dropdown no-arrow">
@@ -88,15 +82,13 @@
                                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                                <button type="button" class="dropdown-item text-warning" data-toggle="modal" data-target="#editPetugas<?= $petugas['id_petugas'] ?>">Edit</button>
-                                                <button type="button" class="dropdown-item text-danger" data-toggle="modal" data-target="#deletePetugas<?= $petugas['id_petugas'] ?>">Hapus</button>
+                                                <button type="button" class="dropdown-item text-warning" data-toggle="modal" data-target="#editSPP<?= $SPP['id_spp'] ?>">Edit</button>
+                                                <button type="button" class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteSPP<?= $SPP['id_spp'] ?>">Hapus</button>
                                             </div>
                                         </div>
                                         </td>
-                                        <td><?= $petugas['username'] ?></td>
-                                        <td><?= $petugas['password'] ?></td>
-                                        <td><?= $petugas['nama_petugas'] ?></td>
-                                        <td><?= $petugas['level'] ?></td>
+                                        <td><?= $SPP['tahun'] ?></td>
+                                        <td>Rp. <?= number_format($SPP['nominal'], 0, ',', '.') ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -132,38 +124,26 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Petugas Modal-->
-    <div class="modal fade" id="addPetugas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Siswa Modal-->
+    <div class="modal fade" id="addSPP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/add/petugas">
+            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/add/spp">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Petugas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah SPP</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="font-weight-bold text-center">Data Petugas</h6>
+                    <h6 class="font-weight-bold text-center">Data SPP</h6>
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input class="form-control" type="text" name="username" required id="username">
+                        <label for="tahun">Tahun</label>
+                        <input class="form-control" type="text" name="tahun" required id="tahun">
                     </div>
                     <div class="form-group">
-                        <label for="nama_petugas">Nama petugas</label>
-                        <input class="form-control" type="text" name="nama_petugas" required id="nama_petugas">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" type="password" name="password" required id="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="level">Level</label>
-                        <select class="custom-select" name="level" required id="level">
-                            <option value="" selected hidden disabled>Pilih Level...</option>
-                            <option value="admin">admin</option>
-                            <option value="petugas">Petugas</option>
-                        </select>
+                        <label for="nominal">Nominal</label>
+                        <input class="form-control" type="number" name="nominal" min="0" required id="nominal">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -173,38 +153,27 @@
         </div>
     </div>
 
-    <?php foreach($data['petugas'] as $petugas) { ?>
-      <div class="modal fade" id="editPetugas<?= $petugas['id_petugas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <?php foreach($data['SPP'] as $SPP) { ?>
+      <div class="modal fade" id="editSPP<?= $SPP['id_spp'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/edit/petugas">
+            <form class="modal-content" method="post" action="<?= BASE_URL ?>/petugas/edit/spp">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Petugas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit SPP</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="font-weight-bold text-center">Data Petugas</h6>
-                  <input type="hidden" name="id_petugas" value="<?= $petugas['id_petugas'] ?>">
-                  <div class="form-group">
-                        <label for="username">Username</label>
-                        <input class="form-control" type="text" name="username" required id="username" value="<?= $petugas['username'] ?>">
+                    <h6 class="font-weight-bold text-center">Data SPP</h6>
+                    <input type="hidden" name="id_spp" value="<?= $SPP['id_spp'] ?>">
+                    <div class="form-group">
+                        <label for="tahun">Tahun</label>
+                        <input class="form-control" type="text" name="tahun" required value="<?= $SPP['tahun'] ?>" id="tahun">
                     </div>
                     <div class="form-group">
-                        <label for="nama_petugas">Nama petugas</label>
-                        <input class="form-control" type="text" name="nama_petugas" required id="nama_petugas" value="<?= $petugas['nama_petugas'] ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" type="password" name="password" required id="password" value="<?= $petugas['password'] ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="level">Level</label>
-                        <select class="custom-select" name="level" required id="level">
-                            <option value="admin" <?= ($petugas['level'] === 'admin') ? 'selected' : '' ?>>admin</option>
-                            <option value="petugas" <?= ($petugas['level'] === 'petugas') ? 'selected' : '' ?>>Petugas</option>
-                        </select>
+                        <label for="nominal">Nominal</label>
+                        <input class="form-control" type="number" name="nominal" min="0" required value="<?= $SPP['nominal'] ?>" id="nominal">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -214,21 +183,21 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deletePetugas<?= $petugas['id_petugas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="deleteSPP<?= $SPP['id_spp'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Petugas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus SPP</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Yakin hapus data petugas?</div>
+                <div class="modal-body">Yakin hapus data SPP?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="<?= BASE_URL ?>/petugas/delete/petugas" method="post">
-                      <input type="hidden" name="id_petugas" value="<?= $petugas['id_petugas'] ?>">
+                    <form action="<?= BASE_URL ?>/petugas/delete/spp" method="post">
+                      <input type="hidden" name="id_spp" value="<?= $SPP['id_spp'] ?>">
                       <button type="submit" class="btn btn-primary" >Hapus</button>
                     </form>
                 </div>

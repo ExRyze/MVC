@@ -20,6 +20,9 @@
     <!-- Custom styles for this template-->
     <link href="<?= CSS ?>/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -55,9 +58,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                            <table class="col-12 table table-hover table-bordered text-center" id="dataTable">
+                            <table class="table table-hover table-bordered text-center" id="dataTable">
                                 <thead>
                                     <tr>
+                                        <th>Action</th>
                                         <th>NISN</th>
                                         <th>NIS</th>
                                         <th>Nama</th>
@@ -65,11 +69,11 @@
                                         <th>Alamat</th>
                                         <th>No Telepon</th>
                                         <th>SPP</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Action</th>
                                         <th>NISN</th>
                                         <th>NIS</th>
                                         <th>Nama</th>
@@ -77,12 +81,22 @@
                                         <th>Alamat</th>
                                         <th>No Telepon</th>
                                         <th>SPP</th>
-                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody class="text-left">
                                     <?php foreach($data['siswa'] as $siswa) { ?>
                                     <tr>
+                                        <td>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                <button type="button" class="dropdown-item text-warning" data-toggle="modal" data-target="#editSiswa<?= $siswa['nisn'] ?>">Edit</button>
+                                                <button type="button" class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteSiswa<?= $siswa['nisn'] ?>">Hapus</button>
+                                            </div>
+                                        </div>
+                                        </td>
                                         <td><?= $siswa['nisn'] ?></td>
                                         <td><?= $siswa['nis'] ?></td>
                                         <td><?= $siswa['nama'] ?></td>
@@ -91,11 +105,7 @@
                                         <td><?= $siswa['no_telp'] ?></td>
                                         <td>
                                         <strong>Tahun :</strong> <?= $siswa['tahun'] ?> <br>
-                                        <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 2, ',', '.') ?>
-                                        </td>
-                                        <td>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSiswa<?= $siswa['nisn'] ?>">Edit</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSiswa<?= $siswa['nisn'] ?>">Hapus</button>
+                                        <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 0, ',', '.') ?>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -174,15 +184,14 @@
                         <label for="alamat">Alamat</label>
                         <textarea class="form-control" name="alamat" required id="alamat" rows="2"></textarea>
                     </div>
-                    <div class="border border-3 border-dark mb-3"></div>
-                    <h6 class="font-weight-bold text-center">Data SPP</h6>
                     <div class="form-group">
-                        <label for="tahun">Tahun</label>
-                        <input class="form-control" type="text" name="tahun" required id="tahun">
-                    </div>
-                    <div class="form-group">
-                        <label for="nominal">Nominal</label>
-                        <input class="form-control" type="number" name="nominal" required id="nominal">
+                        <label for="id_spp">SPP</label>
+                        <select class="custom-select" name="id_spp" required id="id_spp">
+                            <option value="" selected hidden disabled>Pilih Tahun...</option>
+                            <?php foreach($data['spp'] as $spp) { ?>
+                              <option value="<?= $spp['id_spp'] ?>"><?= $spp['tahun'] ?> [Rp. <?= number_format($spp['nominal'], 0, ',', '.') ?>]</option>
+                            <?php } ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -234,16 +243,14 @@
                         <label for="alamat">Alamat</label>
                         <textarea class="form-control" name="alamat" required id="alamat" rows="2"><?= $siswa['alamat'] ?></textarea>
                     </div>
-                    <div class="border border-3 border-dark mb-3"></div>
-                    <h6 class="font-weight-bold text-center">Data SPP</h6>
-                    <input type="hidden" name="id_spp" value="<?= $siswa['id_spp'] ?>">
                     <div class="form-group">
-                        <label for="tahun">Tahun</label>
-                        <input class="form-control" type="text" name="tahun" required value="<?= $siswa['tahun'] ?>" id="tahun">
-                    </div>
-                    <div class="form-group">
-                        <label for="nominal">Nominal</label>
-                        <input class="form-control" type="number" name="nominal" required value="<?= $siswa['nominal'] ?>" id="nominal">
+                        <label for="id_spp">SPP</label>
+                        <select class="custom-select" name="id_spp" required id="id_spp">
+                            <option value="" selected hidden disabled>Pilih Tahun...</option>
+                            <?php foreach($data['spp'] as $spp) { ?>
+                              <option value="<?= $spp['id_spp'] ?>" <?= ($siswa['id_spp'] === $spp['id_spp']) ? 'selected' : '' ?>><?= $spp['tahun'] ?> [Rp. <?= number_format($spp['nominal'], 0, ',', '.') ?>]</option>
+                            <?php } ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

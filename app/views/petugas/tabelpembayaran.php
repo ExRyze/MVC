@@ -20,6 +20,9 @@
     <!-- Custom styles for this template-->
     <link href="<?= CSS ?>/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -55,33 +58,41 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                            <table class="col-12 table table-hover table-bordered text-center" id="dataTable">
+                            <table class="table table-hover table-bordered text-center" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
+                                        <th>Action</th>
                                         <th>Petugas</th>
                                         <th>Siswa</th>
                                         <th>Tanggal Bayar</th>
                                         <th>SPP</th>
                                         <th>Jumlah Pembayaran</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>No.</th>
+                                        <th>Action</th>
                                         <th>Petugas</th>
                                         <th>Siswa</th>
                                         <th>Tanggal Bayar</th>
                                         <th>SPP</th>
                                         <th>Jumlah Pembayaran</th>
-                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody class="text-left">
-                                    <?php foreach($data['pembayaran'] as $i => $pembayaran) { ?>
+                                    <?php foreach($data['pembayaran'] as $pembayaran) { ?>
                                     <tr>
-                                        <td><?= $i+1 ?></td>
+                                        <td>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                <button type="button" class="dropdown-item text-warning" data-toggle="modal" data-target="#editPembayaran<?= $pembayaran['id_pembayaran'] ?>">Edit</button>
+                                                <button type="button" class="dropdown-item text-danger" data-toggle="modal" data-target="#deletePembayaran<?= $pembayaran['id_pembayaran'] ?>">Hapus</button>
+                                            </div>
+                                        </div>
+                                        </td>
                                         <td><?= $pembayaran['username'] ?></td>
                                         <td><?= $pembayaran['nama'] ?></td>
                                         <td><?= date("d F Y", strtotime($pembayaran['tgl_bayar'])) ?></td>
@@ -90,10 +101,6 @@
                                         <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 2, ',', '.') ?>
                                         </td>
                                         <td><?= number_format($pembayaran['jumlah_bayar'], 2, ',', '.') ?></td>
-                                        <td>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editPembayaran<?= $pembayaran['id_pembayaran'] ?>">Edit</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePembayaran<?= $pembayaran['id_pembayaran'] ?>">Hapus</button>
-                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

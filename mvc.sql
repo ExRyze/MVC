@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 21, 2023 at 12:53 AM
+-- Generation Time: Feb 23, 2023 at 03:29 PM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -52,7 +52,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
-(1, 'XI RPL 2', 'Rekayasa Perangkat Lunak');
+(1, 'XI RPL 2', 'Rekayasa Perangkat Lunak'),
+(2, 'Dummy', 'Dummys');
 
 -- --------------------------------------------------------
 
@@ -64,19 +65,12 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_petugas` int(11) NOT NULL,
   `nisn` varchar(10) NOT NULL,
-  `tgl_bayar` date NOT NULL,
+  `tgl_bayar` tinyint(2) NOT NULL,
   `bulan_dibayar` varchar(9) NOT NULL,
   `tahun_dibayar` varchar(4) NOT NULL,
   `id_spp` int(11) NOT NULL,
   `jumlah_bayar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pembayaran`
---
-
-INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`) VALUES
-(2, 1, '0059241344', '2023-01-15', 'January', '2023', 1, 1000000);
 
 -- --------------------------------------------------------
 
@@ -122,7 +116,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `id_kelas`, `alamat`, `no_telp`, `id_spp`, `password`) VALUES
-('0059241344', '28913', 'Vaisya Govinanda S.', 1, 'IDK', '089604926399', 1, '123');
+('0059241344', '28913', 'Vaisya Govinanda S.', 1, 'IDK', '089604926399', 1, '123'),
+('0059241345', '28914', 'Dummy', 2, 'dummys', '089604926399', 2, '123');
 
 -- --------------------------------------------------------
 
@@ -141,7 +136,8 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
-(1, 2022, 1000000);
+(1, 2022, 1000000),
+(2, 2023, 1000000);
 
 -- --------------------------------------------------------
 
@@ -216,7 +212,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -234,7 +230,7 @@ ALTER TABLE `petugas`
 -- AUTO_INCREMENT for table `spp`
 --
 ALTER TABLE `spp`
-  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

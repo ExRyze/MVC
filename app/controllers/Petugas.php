@@ -10,10 +10,22 @@ class Petugas extends Controllers {
     return  $this->view('petugas/index', $data);
   }
 
-  public function entri() {
+  public function entri($nis = []) {
     Middleware::level(('admin' || 'petugas'));
-    $data['daftar_siswa'] = $this->model('Siswa')->list();
-    return $this->view('petugas/entri', $data);
+    if(empty($nis)) {
+      $data['siswa'] = $this->model('Siswa')->getAll();
+      return $this->view('petugas/entrisearch', $data);
+    } else {
+      $data['bulan'] = [
+        "Juli", "Agustus", "September",
+        "Oktober", "November", "Desember", 
+        "Januari", "Februari", "Maret", 
+        "April", "Mei", "Juni"
+      ];
+      $data['siswa'] = $this->model('Siswa')->get($nis);
+      $data['pembayaran'] = $this->model('pembayaran')->siswa($data['siswa']['nisn'], $data['siswa']['id_spp']);
+      return $this->view('petugas/entri', $data);
+    }
   }
 
   public function pembayaran() {
@@ -28,10 +40,17 @@ class Petugas extends Controllers {
     return $this->view('petugas/historypembayaran', $data);
   }
 
+  public function tabelspp() {
+    Middleware::level('admin');
+    $data['SPP'] = $this->model('Spp')->getAll();
+    return $this->view('petugas/tabelspp', $data);
+  }
+
   public function tabelsiswa() {
     Middleware::level('admin');
     $data['siswa'] = $this->model('Siswa')->getAll();
     $data['kelas'] = $this->model('Kelas')->getAll();
+    $data['spp'] = $this->model('Spp')->getAll();
     return $this->view('petugas/tabelsiswa', $data);
   }
 
@@ -56,22 +75,14 @@ class Petugas extends Controllers {
   public function add($key) {
     Middleware::level('admin');
     if(!$this->model($key)->validate()) {
-      if($key === 'siswa') {
-        $this->model($key)->storeSPP();
-        $this->model($key)->store($this->model($key)->getIDSPP());
-      } else {
-        $this->model($key)->store();
-      }
+      $this->model($key)->store();
       Flasher::setFlasher("Data berhasi ditambahkan", "alert alert-success"); return Functions::back();}
-    Flasher::setFlasher("NISN atau NIS telah dipakai oleh siswa lain...", "alert alert-danger"); return Functions::back();
+    Flasher::setFlasher("Data sudah ada...", "alert alert-danger"); return Functions::back();
   }
 
   public function edit($key) {
     Middleware::level('admin');
     if($this->model($key)->validate()) {
-      if($key === 'siswa') {
-        $this->model($key)->updateSPP();
-      }
       $this->model($key)->update();
       Flasher::setFlasher("Data berhasi diperbaharui", "alert alert-success"); return Functions::back();}
     Flasher::setFlasher("Terjadi suatu kesalahan...", "alert alert-danger"); return Functions::back();
@@ -81,9 +92,6 @@ class Petugas extends Controllers {
     Middleware::level('admin');
     if($this->model($key)->validate()) {
       $this->model($key)->delete();
-      if($key === 'siswa') {
-        $this->model($key)->deleteSPP();
-      }
       Flasher::setFlasher("Data berhasi dihapus", "alert alert-success"); return Functions::back();}
     Flasher::setFlasher("Terjadi suatu kesalahan...", "alert alert-danger"); return Functions::back();
   }

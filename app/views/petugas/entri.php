@@ -22,6 +22,12 @@
     <!-- Custom styles for this template-->
     <link href="<?= CSS ?>/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        .bulan-item:last-child {
+            margin-bottom: 0!important;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -54,44 +60,64 @@
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
-                    <form action="" method="post" class="col-12 mx-auto card shadow mb-3 card-body entriPembayaran">
-                        <input type="hidden" name="id_petugas" value="<?= $_SESSION['ExSPP']['user']['id_petugas'] ?>">
-                        <div class="form-group mb-0">
-                            <label for="">Siswa</label>
-                            <div class="row" style="gap: 1rem;">
-                            <input type="text" class="form-control w-auto flex-fill" list="listSiswa" placeholder="Masukkan NISN siswa...">
-                            <button class="btn btn-primary" type="button" id="searchSiswa">Search</button>
-                            </div>
-                        </div>
-                        <div class="result">
-
-                        </div>
-                    </form>
-
                     <div class="row">
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-3">
                             <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <h6 class="m-0">Profile</h6>
+                                </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
-                                    
+                                <div class="card-body d-flex flex-column text-center">
+                                    <div class="d-flex justify-content-center mb-4">
+                                        <img class="col-6 rounded-circle" src="<?= IMG ?>/undraw_profile.svg">
+                                    </div>
+                                    <div>
+                                        <h5><?= $data['siswa']['nama'] ?></h5>
+                                        <small><?= $data['siswa']['nisn']." / ".$data['siswa']['nis'] ?></small><br>
+                                        <small><?= $data['siswa']['tahun']." / ".($data['siswa']['tahun']+1) ?></small><br>
+                                        <small><?= $data['siswa']['nama_kelas'] ?></small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-6">
                             <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <h6 class="m-0">Bulan pembayaran</h6>
+                                </div>
                                 <!-- Card Body -->
                                 <div class="card-body d-flex flex-wrap">
-                                    <?php for($i=1; $i<=12; $i++) { ?>
-                                        <div class="col-xl-3 <?= ($i<=8)? 'mb-3' : ''; ?>">
+                                    <?php for($i=0; $i<=11; $i++) { ?>
+                                        <div class="col-xl-4 mb-3 bulan-item">
                                             <div class="card shadow">
-                                                <div class="card-body"></div>
+                                                <div class="card-body text-center">
+                                                    <h6><?= $data['bulan'][$i] ?></h6>
+                                                    <!-- <?php foreach ($data['pembayaran'] as $bayar) { if($bayar['bulan_dibayar'] === $data['bulan'][$i]) { ?>
+                                                        <button class="btn btn-success">Sudah dibayar!</button>
+                                                    <?php } else { ?>
+                                                        <button class="btn btn-danger">Bayar</button>
+                                                    <?php } } ?> -->
+                                                </div>
                                             </div>
                                         </div>
                                     <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-3">
+                            <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <h6 class="m-0">Total bayar</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -134,8 +160,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= JS ?>/sb-admin-2.min.js"></script>
-    <script src="<?= JS ?>/entri.js"></script>
-    <script>new Entri(<?= json_encode($data['daftar_siswa']) ?>);</script>
 
 </body>
 
