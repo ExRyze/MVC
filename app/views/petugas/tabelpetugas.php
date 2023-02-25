@@ -224,9 +224,9 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Yakin hapus data petugas?</div>
+                <div class="modal-body">Yakin hapus data Petugas?<br><small>**Jika terhapus, data <span class="text-danger font-weight-bold">pembayaran siswa</span> yang dilakukan oleh petugas ini ikut terhapus**</small></div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form action="<?= BASE_URL ?>/petugas/delete/petugas" method="post">
                       <input type="hidden" name="id_petugas" value="<?= $petugas['id_petugas'] ?>">
                       <button type="submit" class="btn btn-primary" >Hapus</button>

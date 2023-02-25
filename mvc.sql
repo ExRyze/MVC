@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 23, 2023 at 03:29 PM
+-- Generation Time: Feb 25, 2023 at 07:45 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -52,8 +52,7 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
-(1, 'XI RPL 2', 'Rekayasa Perangkat Lunak'),
-(2, 'Dummy', 'Dummys');
+(1, 'XI RPL 2', 'Rekayasa Perangkat Lunak');
 
 -- --------------------------------------------------------
 
@@ -65,7 +64,7 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_petugas` int(11) NOT NULL,
   `nisn` varchar(10) NOT NULL,
-  `tgl_bayar` tinyint(2) NOT NULL,
+  `tgl_bayar` date NOT NULL,
   `bulan_dibayar` varchar(9) NOT NULL,
   `tahun_dibayar` varchar(4) NOT NULL,
   `id_spp` int(11) NOT NULL,
@@ -116,8 +115,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `id_kelas`, `alamat`, `no_telp`, `id_spp`, `password`) VALUES
-('0059241344', '28913', 'Vaisya Govinanda S.', 1, 'IDK', '089604926399', 1, '123'),
-('0059241345', '28914', 'Dummy', 2, 'dummys', '089604926399', 2, '123');
+('0059241344', '28913', 'Vaisya Govinanda S.', 1, 'IDK', '089604926399', 1, '123');
 
 -- --------------------------------------------------------
 
@@ -127,7 +125,7 @@ INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `id_kelas`, `alamat`, `no_telp`, `id
 
 CREATE TABLE `spp` (
   `id_spp` int(11) NOT NULL,
-  `tahun` int(11) NOT NULL,
+  `tahun` varchar(9) NOT NULL,
   `nominal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -136,8 +134,7 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
-(1, 2022, 1000000),
-(2, 2023, 1000000);
+(1, '2022/2023', 1000000);
 
 -- --------------------------------------------------------
 
@@ -218,7 +215,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `petugas`
@@ -246,16 +243,16 @@ ALTER TABLE `users`
 -- Constraints for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id_petugas`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `pembayaran_ibfk_3` FOREIGN KEY (`id_spp`) REFERENCES `siswa` (`id_spp`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id_petugas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pembayaran_ibfk_3` FOREIGN KEY (`id_spp`) REFERENCES `siswa` (`id_spp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`id_spp`) REFERENCES `spp` (`id_spp`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_ibfk_3` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`id_spp`) REFERENCES `spp` (`id_spp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_ibfk_3` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

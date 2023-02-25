@@ -270,9 +270,9 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Yakin hapus data siswa?</div>
+                <div class="modal-body">Yakin hapus data Siswa?<br><small>**Jika terhapus, data <span class="text-danger font-weight-bold">pembayaran siswa</span> ikut terhapus**</small></div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form action="<?= BASE_URL ?>/petugas/delete/siswa" method="post">
                       <input type="hidden" name="nisn" value="<?= $siswa['nisn'] ?>">
                       <input type="hidden" name="nis" value="<?= $siswa['nis'] ?>">

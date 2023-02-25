@@ -191,7 +191,7 @@
                 </div>
                 <div class="modal-body">Yakin hapus data pembayaran?</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form action="<?= BASE_URL ?>/petugas/delete/pembayaran" method="post">
                       <input type="hidden" name="id_pembayaran" value="<?= $pembayaran['id_pembayaran'] ?>">
                       <button type="submit" class="btn btn-primary" >Hapus</button>
