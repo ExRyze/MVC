@@ -92,7 +92,7 @@
                                         <td><?= $siswa['no_telp'] ?></td>
                                         <td>
                                         <strong>Tahun :</strong> <?= $siswa['tahun'] ?> <br>
-                                        <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 2, ',', '.') ?>
+                                        <strong>Nominal :</strong> Rp. <?= number_format($siswa['nominal'], 0, ',', '.') ?>
                                         </td>
                                     </tr>
                                     <?php } ?>

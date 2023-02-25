@@ -25,16 +25,22 @@
                 <a class="nav-link" href="<?= BASE_URL ?>/petugas/entri">
                     <span>Entri Pembayaran</span></a>
             </li>
-            <?php } ?>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= (isset($_SESSION['ExSPP']['user']['level'])) ? BASE_URL.'/petugas/historypembayaran' : BASE_URL.'/siswa/historypembayaran' ?>">
+                <a class="nav-link" href="<?= BASE_URL ?>/petugas/historypembayaran">
                     <span>History Pembayaran</span></a>
             </li>
+            <?php } ?>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <?php if(isset($_SESSION['ExSPP']['user']['level']) && $_SESSION['ExSPP']['user']['level'] === 'admin') { ?>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASE_URL ?>/petugas/generate">
+                    <span>Generate laporan</span></a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">

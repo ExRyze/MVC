@@ -36,6 +36,11 @@ class Pembayaran_table {
     return $this->db->resultAll();
   }
 
+  public function laporan() {
+    $this->db->query("SELECT * FROM {$this->table}");
+    return $this->db->resultAll();
+  }
+
   public function validate() {
     $this->db->query("SELECT * FROM {$this->table} WHERE `id_pembayaran` = :id_pembayaran");
     $this->db->bind('id_pembayaran', $_POST['id_pembayaran']);
@@ -44,13 +49,13 @@ class Pembayaran_table {
 
   public function store() {
     $this->db->query("INSERT INTO {$this->table} (`id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`,  `jumlah_bayar`) VALUES (:id_petugas, :nisn, :tgl_bayar, :bulan_dibayar, :tahun_dibayar, :id_spp,  :jumlah_bayar)");
-    $this->db->bind('id_petugas', $_POST['id_petugas']);
+    $this->db->bind('id_petugas', $_SESSION['ExSPP']['user']['id_petugas']);
     $this->db->bind('nisn', $_POST['nisn']);
     $this->db->bind('tgl_bayar', date("Y-m-d"));
-    $this->db->bind('bulan_dibayar', date("F"));
-    $this->db->bind('tahun_dibayar', date("Y"));
+    $this->db->bind('bulan_dibayar', $_POST['bulan']);
+    $this->db->bind('tahun_dibayar', $_POST['tahun']);
     $this->db->bind('id_spp', $_POST['id_spp']);
-    $this->db->bind('jumlah_bayar', $_POST['jumlah_bayar']);
+    $this->db->bind('jumlah_bayar', $_POST['jumlah']);
     return $this->db->rowCount();
   }
 

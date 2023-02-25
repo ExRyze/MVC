@@ -65,6 +65,7 @@
                                         <th>Petugas</th>
                                         <th>Siswa</th>
                                         <th>Tanggal Bayar</th>
+                                        <th>Bulan / Tahun</th>
                                         <th>SPP</th>
                                         <th>Jumlah Pembayaran</th>
                                     </tr>
@@ -75,6 +76,7 @@
                                         <th>Petugas</th>
                                         <th>Siswa</th>
                                         <th>Tanggal Bayar</th>
+                                        <th>Bulan / Tahun</th>
                                         <th>SPP</th>
                                         <th>Jumlah Pembayaran</th>
                                     </tr>
@@ -96,11 +98,12 @@
                                         <td><?= $pembayaran['username'] ?></td>
                                         <td><?= $pembayaran['nama'] ?></td>
                                         <td><?= date("d F Y", strtotime($pembayaran['tgl_bayar'])) ?></td>
+                                        <td><?= $pembayaran['bulan_dibayar']." / ".$pembayaran['tahun_dibayar'] ?></td>
                                         <td>
                                         <strong>Tahun :</strong> <?= $pembayaran['tahun'] ?> <br>
-                                        <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 2, ',', '.') ?>
+                                        <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 0, ',', '.') ?>
                                         </td>
-                                        <td><?= number_format($pembayaran['jumlah_bayar'], 2, ',', '.') ?></td>
+                                        <td><?= number_format($pembayaran['jumlah_bayar'], 0, ',', '.') ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

@@ -63,7 +63,7 @@
                     <div class="row">
 
                         <!-- Pie Chart -->
-                        <div class="col-3">
+                        <div class="col-xl-3">
                             <div class="card shadow mb-4">
                                 <div class="card-header">
                                     <h6 class="m-0">Profile</h6>
@@ -76,7 +76,7 @@
                                     <div>
                                         <h5><?= $data['siswa']['nama'] ?></h5>
                                         <small><?= $data['siswa']['nisn']." / ".$data['siswa']['nis'] ?></small><br>
-                                        <small><?= $data['siswa']['tahun']." / ".($data['siswa']['tahun']+1) ?></small><br>
+                                        <small><?= $data['siswa']['tahun'] ?></small><br>
                                         <small><?= $data['siswa']['nama_kelas'] ?></small>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                         </div>
 
                         <!-- Area Chart -->
-                        <div class="col-6">
+                        <div class="col-xl-9">
                             <div class="card shadow mb-4">
                                 <div class="card-header">
                                     <h6 class="m-0">Bulan pembayaran</h6>
@@ -92,32 +92,34 @@
                                 <!-- Card Body -->
                                 <div class="card-body d-flex flex-wrap">
                                     <?php for($i=0; $i<=11; $i++) { ?>
-                                        <div class="col-xl-4 mb-3 bulan-item">
-                                            <div class="card shadow">
+                                        <?php foreach ($data['pembayaran'] as $bayar) { if($bayar['bulan_dibayar'] === $data['bulan'][$i]) { ?>
+                                            <div class="col-xl-3 mb-3 bulan-item">
+                                                <div class="card shadow border-success">
+                                                    <div class="card-body text-center">
+                                                        <h6><?= $data['bulan'][$i] ?></h6>
+                                                        <p>Rp. <?= number_format($bayar['jumlah_bayar'], 0, ',', '.') ?></p>
+                                                        <button class="btn btn-success">Lunas!</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php $data['created'] = true; } } if(!$data['created']) { ?>
+                                        <div class="col-xl-3 mb-3 bulan-item">
+                                            <div class="card shadow border-danger">
                                                 <div class="card-body text-center">
                                                     <h6><?= $data['bulan'][$i] ?></h6>
-                                                    <!-- <?php foreach ($data['pembayaran'] as $bayar) { if($bayar['bulan_dibayar'] === $data['bulan'][$i]) { ?>
-                                                        <button class="btn btn-success">Sudah dibayar!</button>
-                                                    <?php } else { ?>
-                                                        <button class="btn btn-danger">Bayar</button>
-                                                    <?php } } ?> -->
+                                                    <p>Rp. <?= number_format($data['siswa']['nominal'], 0, ',', '.') ?></p>
+                                                    <form action="<?= BASE_URL ?>/petugas/transaksi" method="post">
+                                                        <input type="hidden" name="nisn" value="<?= $data['siswa']['nisn'] ?>">
+                                                        <input type="hidden" name="id_spp" value="<?= $data['siswa']['id_spp'] ?>">
+                                                        <input type="hidden" name="jumlah" value="<?= $data['siswa']['nominal'] ?>">
+                                                        <input type="hidden" name="bulan" value="<?= $data['bulan'][$i] ?>">
+                                                        <input type="hidden" name="tahun" value="<?= ($i<=5) ? substr($data['siswa']['tahun'], 0, 4) : substr($data['siswa']['tahun'], 5, 4) ?>">
+                                                        <button class="btn btn-danger" type="submit">Bayar</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-3">
-                            <div class="card shadow mb-4">
-                                <div class="card-header">
-                                    <h6 class="m-0">Total bayar</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    
+                                    <?php } $data['created'] = false; } ?>
                                 </div>
                             </div>
                         </div>

@@ -16,22 +16,36 @@ class Petugas extends Controllers {
       $data['siswa'] = $this->model('Siswa')->getAll();
       return $this->view('petugas/entrisearch', $data);
     } else {
-      $data['bulan'] = [
-        "Juli", "Agustus", "September",
-        "Oktober", "November", "Desember", 
-        "Januari", "Februari", "Maret", 
-        "April", "Mei", "Juni"
-      ];
+      $data['bulan'] = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
+      $data['created'] = false;
       $data['siswa'] = $this->model('Siswa')->get($nis);
       $data['pembayaran'] = $this->model('pembayaran')->siswa($data['siswa']['nisn'], $data['siswa']['id_spp']);
       return $this->view('petugas/entri', $data);
     }
   }
 
-  public function pembayaran() {
+  public function transaksi() {
     Middleware::level(('admin' || 'petugas'));
-    if($this->model('Pembayaran')->store()) {Flasher::setFlasher("Pembayaran berhasil", "alert alert-success"); return Functions::back();}
+    if($this->model('Pembayaran')->store()) {Flasher::setFlasher("Transaksi berhasil", "alert alert-success"); return Functions::back();}
     Flasher::setFlasher("Terhadi suatu kesalahan...", "alert alert-danger"); return Functions::back();
+  }
+
+  public function generate() {
+    Middleware::level('admin');
+    $data['created'] = false;
+    $data['bulan'] = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
+    $data['siswa'] = $this->model('Siswa')->getAll();
+    $data['pembayaran'] = $this->model('pembayaran')->laporan();
+    foreach ($data['siswa'] as $sk => $sv) {
+      $sv['bulan'] = [];
+      foreach ($data['pembayaran'] as $pk => $pv) {
+        if($sv['nisn'] === $pv['nisn'] && $sv['id_spp'] === $pv['id_spp']) {
+          array_push($sv['bulan'], $pv['bulan_dibayar']);
+        }
+      }
+      $data['siswa'][$sk] = $sv;
+    }
+    return $this->view('petugas/generate', $data);
   }
 
   public function historypembayaran() {

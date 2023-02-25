@@ -12,13 +12,18 @@ class Siswa_table {
   }
 
   public function get($nis) {
-    $this->db->query("SELECT * FROM {$this->table}, {$this->kelas}, {$this->spp} WHERE {$this->table}.`id_kelas` = {$this->kelas}.`id_kelas` && {$this->table}.`id_spp` = {$this->spp}.`id_spp` && {$this->table}.nis = :nis");
+    $this->db->query("SELECT * FROM {$this->table}
+    LEFT JOIN {$this->kelas} ON {$this->table}.`id_kelas` = {$this->kelas}.`id_kelas`
+    LEFT JOIN {$this->spp} ON {$this->table}.`id_spp` = {$this->spp}.`id_spp`
+    WHERE {$this->table}.nis = :nis");
     $this->db->bind('nis', $nis);
     return $this->db->result();
   }
 
   public function getAll() {
-    $this->db->query("SELECT * FROM {$this->table}, {$this->kelas}, {$this->spp} WHERE {$this->table}.`id_kelas` = {$this->kelas}.`id_kelas` && {$this->table}.`id_spp` = {$this->spp}.`id_spp`");
+    $this->db->query("SELECT * FROM {$this->table}
+    LEFT JOIN {$this->kelas} ON {$this->table}.`id_kelas` = {$this->kelas}.`id_kelas`
+    LEFT JOIN {$this->spp} ON {$this->table}.`id_spp` = {$this->spp}.`id_spp`");
     return $this->db->resultAll();
   }
 

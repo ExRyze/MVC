@@ -20,6 +20,9 @@
     <!-- Custom styles for this template-->
     <link href="<?= CSS ?>/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this page -->
+    <link href="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -51,43 +54,63 @@
                         <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
-                    <table class="col-12 table table-hover table-bordered text-center">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Petugas</th>
-                          <th>Siswa</th>
-                          <th>Tanggal Bayar</th>
-                          <th>SPP</th>
-                          <th>Jumlah Pembayaran</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-left">
-                        <?php foreach($data['pembayaran'] as $i => $pembayaran) { ?>
-                          <tr>
-                            <td><?= $i+1 ?></td>
-                            <td><?= $pembayaran['username'] ?></td>
-                            <td><?= $pembayaran['nama'] ?></td>
-                            <td><?= date("d F Y", strtotime($pembayaran['tgl_bayar'])) ?></td>
-                            <td>
-                              <strong>Tahun :</strong> <?= $pembayaran['tahun'] ?> <br>
-                              <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 2, ',', '.') ?>
-                            </td>
-                            <td><?= number_format($pembayaran['jumlah_bayar'], 2, ',', '.') ?></td>
-                          </tr>
-                        <?php } ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                        <th>No.</th>
-                          <th>Petugas</th>
-                          <th>Siswa</th>
-                          <th>Tanggal Bayar</th>
-                          <th>SPP</th>
-                          <th>Jumlah Pembayaran</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class="table table-hover table-bordered text-center" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Petugas</th>
+                                        <th>Siswa</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>Bulan / Tahun</th>
+                                        <th>SPP</th>
+                                        <th>Jumlah Pembayaran</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Petugas</th>
+                                        <th>Siswa</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>Bulan / Tahun</th>
+                                        <th>SPP</th>
+                                        <th>Jumlah Pembayaran</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody class="text-left">
+                                    <?php foreach($data['pembayaran'] as $pembayaran) { ?>
+                                    <tr>
+                                        <td>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                <button type="button" class="dropdown-item text-warning" data-toggle="modal" data-target="#editPembayaran<?= $pembayaran['id_pembayaran'] ?>">Edit</button>
+                                                <button type="button" class="dropdown-item text-danger" data-toggle="modal" data-target="#deletePembayaran<?= $pembayaran['id_pembayaran'] ?>">Hapus</button>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        <td><?= $pembayaran['username'] ?></td>
+                                        <td><?= $pembayaran['nama'] ?></td>
+                                        <td><?= date("d F Y", strtotime($pembayaran['tgl_bayar'])) ?></td>
+                                        <td><?= $pembayaran['bulan_dibayar']." / ".$pembayaran['tahun_dibayar'] ?></td>
+                                        <td>
+                                        <strong>Tahun :</strong> <?= $pembayaran['tahun'] ?> <br>
+                                        <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 0, ',', '.') ?>
+                                        </td>
+                                        <td><?= number_format($pembayaran['jumlah_bayar'], 0, ',', '.') ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -125,6 +148,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= JS ?>/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?= VENDOR ?>/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= VENDOR ?>/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= JS ?>/demo/datatables-demo.js"></script>
 
 </body>
 
