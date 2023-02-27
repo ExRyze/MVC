@@ -103,7 +103,7 @@
                                         <strong>Tahun :</strong> <?= $pembayaran['tahun'] ?> <br>
                                         <strong>Nominal :</strong> Rp. <?= number_format($pembayaran['nominal'], 0, ',', '.') ?>
                                         </td>
-                                        <td><?= number_format($pembayaran['jumlah_bayar'], 0, ',', '.') ?></td>
+                                        <td>Rp. <?= number_format($pembayaran['jumlah_bayar'], 0, ',', '.') ?></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

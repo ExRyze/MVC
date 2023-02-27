@@ -54,10 +54,11 @@ class Siswa_table {
   }
 
   public function store() {
-    $this->db->query("INSERT INTO {$this->table} (`nisn`, `nis`, `nama`, `id_kelas`, `alamat`, `no_telp`, `id_spp`) VALUES (:nisn, :nis, :nama, :id_kelas, :alamat, :no_telp, :id_spp)");
+    $this->db->query("INSERT INTO {$this->table} VALUES (:nisn, :nis, :nama, :password, :id_kelas, :alamat, :no_telp, :id_spp)");
     $this->db->bind('nisn', $_POST['nisn']);
     $this->db->bind('nis', $_POST['nis']);
     $this->db->bind('nama', $_POST['nama']);
+    $this->db->bind('password', $_POST['password']);
     $this->db->bind('id_kelas', $_POST['id_kelas']);
     $this->db->bind('alamat', $_POST['alamat']);
     $this->db->bind('no_telp', $_POST['no_telp']);

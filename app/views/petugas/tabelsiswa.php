@@ -168,6 +168,10 @@
                         <input class="form-control" type="text" name="nama" required id="nama">
                     </div>
                     <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="text" name="password" required id="password">
+                    </div>
+                    <div class="form-group">
                         <label for="id_kelas">Kelas</label>
                         <select class="custom-select" name="id_kelas" required id="id_kelas">
                             <option value="" selected hidden disabled>Pilih Kelas...</option>
@@ -225,6 +229,10 @@
                     <div class="form-group">
                         <label for="nama">Nama</label>
                         <input class="form-control" type="text" name="nama" required value="<?= $siswa['nama'] ?>" id="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="text" name="password" readonly required value="<?= $siswa['password'] ?>" id="password">
                     </div>
                     <div class="form-group">
                         <label for="id_kelas">Kelas</label>
