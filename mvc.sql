@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 25, 2023 at 07:45 AM
+-- Generation Time: Mar 01, 2023 at 12:19 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -30,7 +30,10 @@ SELECT * FROM `petugas` WHERE `petugas`.`username` = in_username && `petugas`.`p
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getSiswa` (IN `in_nis` CHAR(8), IN `in_password` VARCHAR(32))   BEGIN
-SELECT * FROM `siswa` WHERE `siswa`.`nis` = in_nis && `siswa`.`password` = in_password;
+SELECT * FROM `siswa`
+LEFT JOIN `spp` ON `siswa`.`id_spp` = `spp`.`id_spp`
+LEFT JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
+WHERE `siswa`.`nis` = in_nis && `siswa`.`password` = in_password;
 END$$
 
 DELIMITER ;
@@ -52,7 +55,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
-(1, 'XI RPL 2', 'Rekayasa Perangkat Lunak');
+(1, 'X RPL 2', 'Rekayasa Perangkat Lunak'),
+(2, 'XI RPL 2', 'Rekayasa Perangkat Lunak');
 
 -- --------------------------------------------------------
 
@@ -70,6 +74,18 @@ CREATE TABLE `pembayaran` (
   `id_spp` int(11) NOT NULL,
   `jumlah_bayar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`) VALUES
+(1, 1, '0058241344', '2023-02-27', 'Juli', '2023', 1, 200000),
+(2, 1, '0058241344', '2023-02-27', 'Agustus', '2023', 1, 200000),
+(3, 1, '0058241344', '2023-02-27', 'September', '2023', 1, 200000),
+(4, 1, '0058241344', '2023-02-27', 'Oktober', '2023', 1, 200000),
+(5, 1, '0058241344', '2023-02-27', 'Desember', '2024', 2, 300000),
+(6, 1, '0058241344', '2023-02-27', 'Januari', '2025', 2, 300000);
 
 -- --------------------------------------------------------
 
@@ -103,19 +119,19 @@ CREATE TABLE `siswa` (
   `nisn` char(10) NOT NULL,
   `nis` char(8) NOT NULL,
   `nama` varchar(35) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `alamat` text NOT NULL,
   `no_telp` varchar(13) NOT NULL,
-  `id_spp` int(11) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `id_spp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `id_kelas`, `alamat`, `no_telp`, `id_spp`, `password`) VALUES
-('0059241344', '28913', 'Vaisya Govinanda S.', 1, 'IDK', '089604926399', 1, '123');
+INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `password`, `id_kelas`, `alamat`, `no_telp`, `id_spp`) VALUES
+('0058241344', '28913', 'Vaisya Govinanda S.', '123', 2, 'idk', '089604926399', 2);
 
 -- --------------------------------------------------------
 
@@ -134,7 +150,8 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
-(1, '2022/2023', 1000000);
+(1, '2023/2024', 200000),
+(2, '2024/2025', 300000);
 
 -- --------------------------------------------------------
 
@@ -215,7 +232,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `petugas`
@@ -245,7 +262,7 @@ ALTER TABLE `users`
 ALTER TABLE `pembayaran`
   ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id_petugas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`nisn`) REFERENCES `siswa` (`nisn`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pembayaran_ibfk_3` FOREIGN KEY (`id_spp`) REFERENCES `siswa` (`id_spp`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pembayaran_ibfk_3` FOREIGN KEY (`id_spp`) REFERENCES `spp` (`id_spp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
