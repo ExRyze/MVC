@@ -1,7 +1,0 @@
-#content.home {
-  min-height: calc(100vh - 77px);
-}
-
-#content.home .container-home {
-  height: calc(100% - 70px);
-}
