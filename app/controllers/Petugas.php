@@ -50,7 +50,7 @@ class Petugas extends Controllers {
 
   public function historypembayaran() {
     Middleware::level(('admin' || 'petugas'));
-    $data['pembayaran'] = $this->model('Pembayaran')->getHistoryEntri();
+    $data['pembayaran'] = $this->model('Pembayaran')->getHistory();
     return $this->view('petugas/historypembayaran', $data);
   }
 
