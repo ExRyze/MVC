@@ -1,3 +1,4 @@
+<?php if(str_contains($data['page'], "Siswa -")) {$role = "siswa";} else {$role = "petugas";} ?>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
@@ -12,8 +13,8 @@
   <hr class="sidebar-divider my-0">
 
   <!-- Nav Item - Dashboard -->
-  <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+  <li class="nav-item <?= (str_contains($data['page'], "Home")) ? "active" : "" ?>">
+      <a class="nav-link" href="<?= BURL ?>/<?= $role ?>">
           <i class="fas fa-fw fa-home"></i>
           <span>Home</span></a>
   </li>
@@ -27,28 +28,28 @@
   </div>
 
   <!-- Nav Item - Charts -->
-  <li class="nav-item">
-      <a class="nav-link" href="<?= BURL ?>">
+  <li class="nav-item <?= (str_contains($data['page'], "Entri")) ? "active" : "" ?>">
+      <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/entri">
           <i class="fas fa-fw fa-list"></i>
           <span>Entri transaksi</span></a>
   </li>
 
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
-      <a class="nav-link" href="<?= BURL ?>">
+  <li class="nav-item <?= (str_contains($data['page'], "History")) ? "active" : "" ?>">
+      <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/history">
           <i class="fas fa-fw fa-history"></i>
           <span>History transaksi</span></a>
   </li>
 
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
-      <a class="nav-link" href="<?= BURL ?>">
+  <li class="nav-item <?= (str_contains($data['page'], "Generate")) ? "active" : "" ?>">
+      <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/laporan">
           <i class="fas fa-fw fa-file"></i>
           <span>Generate laporan</span></a>
   </li>
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <li class="nav-item <?= (str_contains($data['page'], "Tabel")) ? "active" : "" ?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
           aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-table"></i>
@@ -57,10 +58,11 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Tabel:</h6>
-              <a class="collapse-item" href="<?= BURL ?>/petugas/tabel/kelas">Kelas</a>
-              <a class="collapse-item" href="<?= BURL ?>/petugas/tabel/pembayaran">Pembayaran</a>
-              <a class="collapse-item" href="<?= BURL ?>/petugas/tabel/siswa">Siswa</a>
-              <a class="collapse-item" href="<?= BURL ?>/petugas/tabel/petugas">Petugas</a>
+              <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/kelas">Kelas</a>
+              <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/pembayaran">Pembayaran</a>
+              <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/siswa">Siswa</a>
+              <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/petugas">Petugas</a>
+              <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/transaksi">Transaksi</a>
           </div>
       </div>
   </li>
