@@ -30,10 +30,13 @@
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h5>Profile siswa</h5>
                                 </div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
+                                <div class="card-body text-center">
+                                    <div class="d-flex justify-content-center mb-3">
                                         <img class="img-profile rounded-circle col-6" src="<?= IMG ?>/undraw_profile.svg">
                                     </div>
+                                    <h5><?= $_SESSION['sppsch2']['nama_siswa'] ?></h5><br>
+                                    <small><?= $_SESSION['sppsch2']['tahun_ajaran'] ?></small><br>
+                                    <small><?= $_SESSION['sppsch2']['nama_kelas'] ?></small>
                                 </div>
                             </div>
                         </div>
@@ -44,16 +47,32 @@
                                     <h5>Transaksi pembayaran</h5>
                                 </div>
                                 <div class="card-body d-flex flex-wrap">
-                                    <?php foreach ($data['bulan'] as $bulan) { ?>
-                                        <div class="col-xl-3 col-lg-4 mb-4">
-                                            <div class="card">
-                                                <div class="card-body d-flex flex-column aling-items-center text-center">
-                                                    <h5><?= $bulan ?></h5>
-                                                    <button class="btn btn-danger">Bayar</button>
+                                    <?php foreach ($data['bulan'] as $ib => $bulan) { ?>
+                                        <?php foreach ($data['transaksi'] as $value) { ?>
+                                            <?php if ($bulan === $value['bulan_dibayar']) { ?>
+                                                <div class="col-xl-3 col-lg-4 mb-4">
+                                                    <div class="card">
+                                                        <div class="card-body d-flex flex-column aling-items-center text-center">
+                                                        <?= $bulan ?>
+                                                            <span><?= "Rp. ".number_format($_SESSION['sppsch2']['nominal'], 0, ",", ".") ?></span>
+                                                            <a class="btn btn-success">Lunas</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php $data['created'] = true; break;} ?>
+                                        <?php } ?>
+                                        <?php if (!$data['created']) { ?>
+                                            <div class="col-xl-3 col-lg-4 mb-4">
+                                                <div class="card">
+                                                    <div class="card-body d-flex flex-column aling-items-center text-center">
+                                                    <?= $bulan ?>
+                                                        <span><?= "Rp. ".number_format($_SESSION['sppsch2']['nominal'], 0, ",", ".") ?></span>
+                                                        <a class="btn btn-danger">Belum lunas</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php } ?>
+                                        <?php } ?>
+                                    <?php $data['created'] = false;} ?>
                                 </div>
                             </div>
                         </div>

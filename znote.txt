@@ -8,6 +8,7 @@
 0:40 jam (CRUD Siswa)
 0:40 jam (Entri)
 0:25 jam (History & tabel Transaksi)
+0:08 jam (View Siswa)
 
 --------------------- +
 10:15 jam

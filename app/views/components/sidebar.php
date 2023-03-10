@@ -48,6 +48,7 @@
           <span>Generate laporan</span></a>
   </li>
   <?php } ?>
+  <?php if($_SESSION['sppsch2']['role'] != "siswa") { ?>
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item <?= (str_contains($data['page'], "Tabel")) ? "active" : "" ?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -68,5 +69,6 @@
           </div>
       </div>
   </li>
+  <?php } ?>
 
 </ul>

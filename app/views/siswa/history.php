@@ -32,6 +32,7 @@
                                     <thead>
                                         <tr>
                                             <th>NISN</th>
+                                            <th>NIS</th>
                                             <th>Nama siswa</th>
                                             <th>Kelas</th>
                                             <th>Tahun_ajaran</th>
@@ -43,6 +44,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>NISN</th>
+                                            <th>NIS</th>
                                             <th>Nama siswa</th>
                                             <th>Kelas</th>
                                             <th>Tahun_ajaran</th>
@@ -52,7 +54,18 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        
+                                        <?php foreach ($data['tabel'] as  $value) { ?>
+                                            <tr>
+                                                <td><?= $value['nisn'] ?></td>
+                                                <td><?= $value['nis'] ?></td>
+                                                <td><?= $value['nama_siswa'] ?></td>
+                                                <td><?= $value['nama_kelas'] ?></td>
+                                                <td><?= $value['tahun_ajaran']." [Rp. ".number_format($value['nominal'], 0, ",", ".")."]" ?></td>
+                                                <td><?= date("Y-m-d h:i:s A", strtotime($value['tanggal_bayar'])) ?></td>
+                                                <td><?= $value['bulan_dibayar']." - ".$value['tahun_dibayar'] ?></td>
+                                                <td><?= $value['nama_petugas'] ?></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

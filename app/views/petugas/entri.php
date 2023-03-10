@@ -55,7 +55,7 @@
                                                         <div class="card-body d-flex flex-column aling-items-center text-center">
                                                         <?= $bulan ?>
                                                             <span><?= "Rp. ".number_format($data['siswa']['nominal'], 0, ",", ".") ?></span>
-                                                            <button class="btn btn-success" type="submit">Lnas</button>
+                                                            <button class="btn btn-success">Lunas</button>
                                                         </div>
                                                     </div>
                                                 </div>
