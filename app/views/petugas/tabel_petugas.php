@@ -21,6 +21,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php Flasher::getMessage() ?>
+
                     <button class="btn btn-success mb-4" data-toggle="modal" data-target="#tambahPetugas">Tambah petugas</button>
 
                     <!-- DataTales Example -->
@@ -50,20 +52,28 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <td>
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header">Action:</div>
-                                                    <a class="dropdown-item text-warning" data-toggle="modal" data-target="#editPetugas">Edit</a>
-                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusPetugas">Hapus</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <?php foreach ($data['tabel'] as  $value) { ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="dropdown no-arrow">
+                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
+                                                            aria-labelledby="dropdownMenuLink">
+                                                            <div class="dropdown-header">Action:</div>
+                                                            <a class="dropdown-item text-warning" data-toggle="modal" data-target="#editPetugas<?= $value['id_petugas'] ?>">Edit</a>
+                                                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusPetugas<?= $value['id_petugas'] ?>">Hapus</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><?= $value['nama_petugas'] ?></td>
+                                                <td><?= $value['username'] ?></td>
+                                                <td><?= $value['password'] ?></td>
+                                                <td><?= $value['role'] ?></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -132,67 +142,68 @@
         </div>
     </div>
 
-    <!-- Edit Petugas Modal-->
-    <div class="modal fade" id="editPetugas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit petugas</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="form-label" for="namaPetugas">Nama petugas</label>
-                        <input type="text" class="form-control" name="namaPetugas" id="namaPetugas" required>
+    <!-- Edit & Hapus Petugas Modal-->
+    <?php foreach ($data['tabel'] as $value) { ?>
+        <div class="modal fade" id="editPetugas<?= $value['id_petugas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit petugas</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="username">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" required>
+                    <div class="modal-body">
+                        <input type="hidden" name="idPetugas" value="<?= $value['id_petugas'] ?>">
+                        <div class="form-group">
+                            <label class="form-label" for="namaPetugas">Nama petugas</label>
+                            <input type="text" class="form-control" name="namaPetugas" id="namaPetugas" required value="<?= $value['nama_petugas'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username" required value="<?= $value['username'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required value="<?= $value['password'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="role">Role</label>
+                            <select name="role" id="role" required class="custom-select">
+                                <option value="petugas" <?= ($value['role'] === "petugas") ? "selected" : "" ?>>Petugas</option>
+                                <option value="admin" <?= ($value['role'] === "admin") ? "selected" : "" ?>>Admin</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" required>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" type="submit">Edit</button>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="role">Role</label>
-                        <select name="role" id="role" required class="custom-select">
-                            <option value="" selected hidden disabled></option>
-                            <option value="petugas">Petugas</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-warning" type="submit">Edit</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- Hapus Petugas Modal-->
-    <div class="modal fade" id="hapusPetugas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit petugas</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="idPetugas">
-                    Yakin hapus petugas ini?<br>
-                    <strong></strong><br>
-                    <br><small>Data <span class="text-danger font-weight-bold">transaksi pembayaran petugas ini</span> juga akan ikut terhapus.</small>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="submit">Hapus</button>
-                </div>
-            </form>
+        <div class="modal fade" id="hapusPetugas<?= $value['id_petugas'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/remove/<?= $data['key'] ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit petugas</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="idPengguna" value="<?= $value['pengguna_id'] ?>">
+                        Yakin hapus petugas ini?<br>
+                        <strong><?= $value['nama_petugas']." - ".$value['username'] ?></strong><br>
+                        <br><small>Data <span class="text-danger font-weight-bold">transaksi pembayaran petugas ini</span> juga akan ikut terhapus.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Hapus</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <?php } ?>
     <?php require_once FOOT ?>

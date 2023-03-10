@@ -7,7 +7,6 @@ class Login extends Controller {
   }
 
   public function index() {
-    var_dump($_POST);
     if(!empty($_POST)) {
       if($this->model("pengguna")->validate()) {
         Flasher::setMessage("Selamat datang!", "success");

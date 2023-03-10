@@ -30,4 +30,12 @@ class Pengguna_tabel {
     return $this->db->result();
   }
 
+  public function create() {
+    $this->db->query("CALL addPengguna(:username, :password, :role)");
+    $this->db->bind("username", $_POST['username']);
+    $this->db->bind("password", $_POST['password']);
+    $this->db->bind("role", $_POST['role']);
+    return $this->db->rowCount();
+  }
+
 }

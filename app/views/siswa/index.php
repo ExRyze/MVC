@@ -21,6 +21,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php Flasher::getMessage(); ?>
+
                     <div class="row">
                         
                         <div class="col-xl-4 col-lg-5">

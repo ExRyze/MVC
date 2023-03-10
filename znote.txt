@@ -3,9 +3,11 @@
 1.0 jam {all views}
 0.5 jam {database}
 1.0 jam (login)
+0.5 jam (store)
+1.0 jam (CRUD All tabel (min. siswa & transaksi))
 
 --------------------- +
-7.0 jam
+8.5 jam
 
 
 cek login siswa

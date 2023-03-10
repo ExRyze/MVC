@@ -26,28 +26,28 @@
   <div class="sidebar-heading">
       Tools
   </div>
-
+  <?php if($_SESSION['sppsch2']['role'] != "siswa") { ?>
   <!-- Nav Item - Charts -->
   <li class="nav-item <?= (str_contains($data['page'], "Entri")) ? "active" : "" ?>">
       <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/entri">
           <i class="fas fa-fw fa-list"></i>
           <span>Entri transaksi</span></a>
   </li>
-
+  <?php } ?>
   <!-- Nav Item - Tables -->
   <li class="nav-item <?= (str_contains($data['page'], "History")) ? "active" : "" ?>">
       <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/history">
           <i class="fas fa-fw fa-history"></i>
           <span>History transaksi</span></a>
   </li>
-
+  <?php if($_SESSION['sppsch2']['role'] === "admin") { ?>
   <!-- Nav Item - Tables -->
   <li class="nav-item <?= (str_contains($data['page'], "Generate")) ? "active" : "" ?>">
       <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/laporan">
           <i class="fas fa-fw fa-file"></i>
           <span>Generate laporan</span></a>
   </li>
-
+  <?php } ?>
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item <?= (str_contains($data['page'], "Tabel")) ? "active" : "" ?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -59,10 +59,12 @@
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Tabel:</h6>
               <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/kelas">Kelas</a>
+              <?php if($_SESSION['sppsch2']['role'] === "admin") { ?>
               <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/pembayaran">Pembayaran</a>
               <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/siswa">Siswa</a>
               <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/petugas">Petugas</a>
               <a class="collapse-item" href="<?= BURL ?>/<?= $role ?>/tabel/transaksi">Transaksi</a>
+              <?php } ?>
           </div>
       </div>
   </li>

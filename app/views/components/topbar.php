@@ -43,7 +43,7 @@
                 <div class="modal-body">Pilih logout untuk mengakhiri sesi.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-danger" href="<?= BURL ?>">Logout</a>
+                    <a class="btn btn-danger" href="<?= BURL ?>/logout">Logout</a>
                 </div>
             </div>
         </div>

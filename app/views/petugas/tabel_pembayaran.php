@@ -21,6 +21,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php Flasher::getMessage() ?>
+
                     <button class="btn btn-success mb-4" data-toggle="modal" data-target="#tambahPembayaran">Tambah pembayaran</button>
 
                     <!-- DataTales Example -->
@@ -46,20 +48,26 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <td>
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header">Action:</div>
-                                                    <a class="dropdown-item text-warning" data-toggle="modal" data-target="#editPembayaran">Edit</a>
-                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusPembayaran">Hapus</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <?php foreach ($data['tabel'] as  $value) { ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="dropdown no-arrow">
+                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
+                                                            aria-labelledby="dropdownMenuLink">
+                                                            <div class="dropdown-header">Action:</div>
+                                                            <a class="dropdown-item text-warning" data-toggle="modal" data-target="#editPembayaran<?= $value['id_pembayaran'] ?>">Edit</a>
+                                                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusPembayaran<?= $value['id_pembayaran'] ?>">Hapus</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><?= $value['tahun_ajaran'] ?></td>
+                                                <td><?= "Rp. ".number_format($value['nominal'], 0, ",", ".") ?></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -116,55 +124,57 @@
         </div>
     </div>
 
-    <!-- Edit Pembayaran Modal-->
-    <div class="modal fade" id="editPembayaran" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit pembayaran</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="form-label" for="tahunAjaran">Tahun ajaran</label>
-                        <input type="text" class="form-control" name="tahunAjaran" id="tahunAjaran" required>
+    <!-- Edit & Hapus Pembayaran Modal-->
+    <?php foreach ($data['tabel'] as $value) { ?>
+        <div class="modal fade" id="editPembayaran<?= $value['id_pembayaran'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit pembayaran</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="nominal">Nominal</label>
-                        <input type="number" name="nominal" id="nominal" class="form-control">
+                    <div class="modal-body">
+                        <input type="hidden" name="idPembayaran" value="<?= $value['id_pembayaran'] ?>">
+                        <div class="form-group">
+                            <label class="form-label" for="tahunAjaran">Tahun ajaran</label>
+                            <input type="text" class="form-control" name="tahunAjaran" id="tahunAjaran" required value="<?= $value['tahun_ajaran'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="nominal">Nominal</label>
+                            <input type="number" name="nominal" id="nominal" class="form-control" value="<?= $value['nominal'] ?>">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-warning" type="submit">Edit</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" type="submit">Edit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- Hapus Pembayaran Modal-->
-    <div class="modal fade" id="hapusPembayaran" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit pembayaran</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="idPembayaran">
-                    Yakin hapus pembayaran ini?<br>
-                    <strong></strong><br>
-                    <br><small>Data <span class="text-danger font-weight-bold">siswa dalam tahun ajaran ini</span> dan data <span class="text-danger font-weight-bold">transaksi pembayaran siswanya</span> juga akan ikut terhapus.</small>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="submit">Hapus</button>
-                </div>
-            </form>
+        <div class="modal fade" id="hapusPembayaran<?= $value['id_pembayaran'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/remove/<?= $data['key'] ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit pembayaran</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="idPembayaran" value="<?= $value['id_pembayaran'] ?>">
+                        Yakin hapus pembayaran ini?<br>
+                        <strong><?= $value['tahun_ajaran']." - Rp. ".number_format($value['nominal'], 0, ",", ".") ?></strong><br>
+                        <br><small>Data <span class="text-danger font-weight-bold">siswa dalam tahun ajaran ini</span> dan data <span class="text-danger font-weight-bold">transaksi pembayaran siswanya</span> juga akan ikut terhapus.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Hapus</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <?php } ?>
     <?php require_once FOOT ?>
