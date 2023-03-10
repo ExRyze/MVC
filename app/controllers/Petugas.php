@@ -30,6 +30,25 @@ class Petugas extends Controller {
     return $this->view("petugas/history", $data);
   }
 
+  public function generate() {
+    Middleware::role("admin");
+    $data['page'] = "Petugas - Generate Laporan";
+    $data['created'] = false;
+    $data['siswa'] = $this->model("siswa")->getAll();
+    $data['transaksi'] = $this->model("transaksi")->getAll();
+    $data['bulan'] = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "January", "Februari", "Maret", "April", "Mei", "Juni"];
+    foreach ($data['siswa'] as $is => $siswa) {
+      $data['siswa'][$is]['bulan'] = [];
+      foreach ($data['transaksi'] as $it => $transaksi) {
+        if($siswa['nisn'] === $transaksi['nisn']) {
+          array_push($data['siswa'][$is]['bulan'], $transaksi['bulan_dibayar']);
+          unset($data['transaksi'][$it]);
+        }
+      }
+    }
+    return $this->view("petugas/generate", $data);
+  }
+
   public function tabel($tabel = "") {
     if($tabel != "kelas") {Middleware::role("admin");}
     if(!file_exists("../app/views/petugas/tabel_".$tabel.".php")) {Functions::redirect();}

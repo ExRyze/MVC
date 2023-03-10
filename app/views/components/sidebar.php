@@ -43,7 +43,7 @@
   <?php if($_SESSION['sppsch2']['role'] === "admin") { ?>
   <!-- Nav Item - Tables -->
   <li class="nav-item <?= (str_contains($data['page'], "Generate")) ? "active" : "" ?>">
-      <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/laporan">
+      <a class="nav-link" href="<?= BURL ?>/<?= $role ?>/generate">
           <i class="fas fa-fw fa-file"></i>
           <span>Generate laporan</span></a>
   </li>

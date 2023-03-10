@@ -9,9 +9,10 @@
 0:40 jam (Entri)
 0:25 jam (History & tabel Transaksi)
 0:08 jam (View Siswa)
+0:32 jam (Generate)
 
 --------------------- +
-10:15 jam
+10:55 jam
 
 
 cek login siswa

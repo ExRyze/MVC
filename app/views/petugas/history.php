@@ -93,27 +93,4 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Hapus Kelas Modal-->
-    <div class="modal fade" id="hapusKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit kelas</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="idKelas">
-                    Yakin hapus kelas ini?<br>
-                    <strong></strong><br>
-                    <br><small>Data <span class="text-danger font-weight-bold">siswa dalam kelas ini</span> dan data <span class="text-danger font-weight-bold">transaksi pembayaran siswanya</span> juga akan ikut terhapus.</small>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="submit">Hapus</button>
-                </div>
-            </form>
-        </div>
-    </div>
     <?php require_once FOOT ?>
