@@ -1,0 +1,11 @@
+2.5 jam {3 rancangan, MVC}
+2.0 jam {early views}
+1.0 jam {all views}
+0.5 jam {database}
+1.0 jam (login)
+
+--------------------- +
+7.0 jam
+
+
+cek login siswa
