@@ -35,7 +35,10 @@ class Petugas extends Controller {
       "Rekayasa Perangkat Lunak", 
       "Teknik Komputer Jaringan",  
       "Teknik Pendingin dan Tata Udara"
-    ];}
+    ];} else if($tabel === "siswa") {
+      $data['kelas'] = $this->model("kelas")->getAll();
+      $data['pembayaran'] = $this->model("pembayaran")->getAll();
+    }
     $data['tabel'] = $this->model($tabel)->getAll();
     return $this->view("petugas/tabel_".$tabel, $data);
   }

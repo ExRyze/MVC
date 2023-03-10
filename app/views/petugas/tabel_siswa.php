@@ -21,6 +21,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php Flasher::getMessage() ?>
+
                     <button class="btn btn-success mb-4" data-toggle="modal" data-target="#tambahSiswa">Tambah siswa</button>
 
                     <!-- DataTales Example -->
@@ -37,7 +39,6 @@
                                             <th>NISN</th>
                                             <th>NIS</th>
                                             <th>Nama siswa</th>
-                                            <th>Username</th>
                                             <th>Password</th>
                                             <th>Telepon</th>
                                             <th>Kelas</th>
@@ -51,7 +52,6 @@
                                             <th>NISN</th>
                                             <th>NIS</th>
                                             <th>Nama siswa</th>
-                                            <th>Username</th>
                                             <th>Password</th>
                                             <th>Telepon</th>
                                             <th>Kelas</th>
@@ -60,20 +60,32 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <td>
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header">Action:</div>
-                                                    <a class="dropdown-item text-warning" data-toggle="modal" data-target="#editSiswa">Edit</a>
-                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusSiswa">Hapus</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <?php foreach ($data['tabel'] as  $value) { ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="dropdown no-arrow">
+                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
+                                                            aria-labelledby="dropdownMenuLink">
+                                                            <div class="dropdown-header">Action:</div>
+                                                            <a class="dropdown-item text-warning" data-toggle="modal" data-target="#editSiswa<?= $value['id_siswa'] ?>">Edit</a>
+                                                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusSiswa<?= $value['id_siswa'] ?>">Hapus</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><?= $value['nisn'] ?></td>
+                                                <td><?= $value['nis'] ?></td>
+                                                <td><?= $value['nama_siswa'] ?></td>
+                                                <td><?= $value['password'] ?></td>
+                                                <td><?= $value['telepon'] ?></td>
+                                                <td><?= $value['nama_kelas'] ?></td>
+                                                <td><?= $value['tahun_ajaran']." [Rp. ".number_format($value['nominal'], 0, ",", ".")."]" ?></td>
+                                                <td><?= $value['alamat'] ?></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -114,13 +126,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="role" value="siswa">
                     <div class="form-group">
                         <label class="form-label" for="nisn">NISN</label>
                         <input type="text" class="form-control" name="nisn" id="nisn" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="nis">NIS</label>
-                        <input type="text" class="form-control" name="nis" id="nis" required>
+                        <label class="form-label" for="username">NIS</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="namaSiswa">Nama siswa</label>
@@ -136,21 +149,25 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="kelasId">Kelas</label>
-                        <!-- <select name="kelasId" id="kelasId" required class="custom-select">
+                        <select name="kelasId" id="kelasId" required class="custom-select">
                             <option value="" selected hidden disabled></option>
                             <?php foreach ($data['kelas'] as  $kelas) { ?>
-                                <option value="<?= $kelas ?>"><?= $kelas ?></option>
+                                <option value="<?= $kelas['id_kelas'] ?>"><?= $kelas['nama_kelas'] ?></option>
                             <?php } ?>
-                        </select> -->
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="pembayaranId">Tahun ajaran</label>
-                        <!-- <select name="pembayaranId" id="pembayaranId" required class="custom-select">
+                        <select name="pembayaranId" id="pembayaranId" required class="custom-select">
                             <option value="" selected hidden disabled></option>
-                            <?php foreach ($data['kelas'] as  $kelas) { ?>
-                                <option value="<?= $kelas ?>"><?= $kelas ?></option>
+                            <?php foreach ($data['pembayaran'] as  $pembayaran) { ?>
+                                <option value="<?= $pembayaran['id_pembayaran'] ?>"><?= $pembayaran['tahun_ajaran']." [Rp. ".number_format($pembayaran['nominal'], 0, ",", ".")."]" ?></option>
                             <?php } ?>
-                        </select> -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -160,85 +177,89 @@
         </div>
     </div>
 
-    <!-- Edit Siswa Modal-->
-    <div class="modal fade" id="editSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit siswa</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="form-label" for="nisn">NISN</label>
-                        <input type="text" class="form-control" name="nisn" id="nisn" required>
+    <!-- Edit & Hapus Siswa Modal-->
+    <?php foreach ($data['tabel'] as $value) { ?>
+        <div class="modal fade" id="editSiswa<?= $value['id_siswa'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit siswa</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="nis">NIS</label>
-                        <input type="text" class="form-control" name="nis" id="nis" required>
+                    <div class="modal-body">
+                        <input type="hidden" name="idSiswa" value="<?= $value['id_siswa'] ?>">
+                        <div class="form-group">
+                            <label class="form-label" for="nisn">NISN</label>
+                            <input type="text" class="form-control" name="nisn" id="nisn" required value="<?= $value['nisn'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="username">NIS</label>
+                            <input type="text" class="form-control" name="username" id="username" required value="<?= $value['nis'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="namaSiswa">Nama siswa</label>
+                            <input type="text" class="form-control" name="namaSiswa" id="namaSiswa" required value="<?= $value['nama_siswa'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required value="<?= $value['password'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="telepon">Telepon</label>
+                            <input type="text" class="form-control" name="telepon" id="telepon" required value="<?= $value['telepon'] ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="kelasId">Kelas</label>
+                            <select name="kelasId" id="kelasId" required class="custom-select">
+                                <?php foreach ($data['kelas'] as  $kelas) { ?>
+                                    <option value="<?= $kelas['id_kelas'] ?>" <?= ($kelas['id_kelas'] === $value['kelas_id']) ? "selected" : "" ?>><?= $kelas['nama_kelas'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pembayaranId">Tahun ajaran</label>
+                            <select name="pembayaranId" id="pembayaranId" required class="custom-select">
+                                <?php foreach ($data['pembayaran'] as  $pembayaran) { ?>
+                                    <option value="<?= $pembayaran['id_pembayaran'] ?>" <?= ($pembayaran['id_pembayaran'] === $value['pembayaran_id']) ? "selected" : "" ?>><?= $pembayaran['tahun_ajaran']." [Rp. ".number_format($pembayaran['nominal'], 0, ",", ".")."]" ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="10"><?= $value['alamat'] ?></textarea>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="namaSiswa">Nama siswa</label>
-                        <input type="text" class="form-control" name="namaSiswa" id="namaSiswa" required>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" type="submit">Edit</button>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="telepon">Telepon</label>
-                        <input type="text" class="form-control" name="telepon" id="telepon" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="kelasId">Kelas</label>
-                        <!-- <select name="kelasId" id="kelasId" required class="custom-select">
-                            <option value="" selected hidden disabled></option>
-                            <?php foreach ($data['kelas'] as  $kelas) { ?>
-                                <option value="<?= $kelas ?>"><?= $kelas ?></option>
-                            <?php } ?>
-                        </select> -->
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="pembayaranId">Tahun ajaran</label>
-                        <!-- <select name="pembayaranId" id="pembayaranId" required class="custom-select">
-                            <option value="" selected hidden disabled></option>
-                            <?php foreach ($data['kelas'] as  $kelas) { ?>
-                                <option value="<?= $kelas ?>"><?= $kelas ?></option>
-                            <?php } ?>
-                        </select> -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-warning" type="submit">Edit</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- Hapus Siswa Modal-->
-    <div class="modal fade" id="hapusSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit siswa</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="idSiswa">
-                    Yakin hapus siswa ini?<br>
-                    <strong></strong><br>
-                    <br><small>Data <span class="text-danger font-weight-bold">transaksi pembayaran siswa ini</span> juga akan ikut terhapus.</small>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="submit">Hapus</button>
-                </div>
-            </form>
+        <div class="modal fade" id="hapusSiswa<?= $value['id_siswa'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/remove/<?= $data['key'] ?>">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit siswa</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="penggunaId" value="<?= $value['pengguna_id'] ?>">
+                        Yakin hapus siswa ini?<br>
+                        <strong><?= $value['nis']." - ".$value['nama_siswa'] ?></strong><br>
+                        <br><small>Data <span class="text-danger font-weight-bold">transaksi pembayaran siswa ini</span> juga akan ikut terhapus.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Hapus</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <?php } ?>
     <?php require_once FOOT ?>

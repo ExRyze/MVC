@@ -1,13 +1,14 @@
-2.5 jam {3 rancangan, MVC}
-2.0 jam {early views}
-1.0 jam {all views}
-0.5 jam {database}
-1.0 jam (login)
-0.5 jam (store)
-1.0 jam (CRUD All tabel (min. siswa & transaksi))
+2:30 jam {3 rancangan, MVC}
+2:00 jam {early views}
+1:00 jam {all views}
+0:30 jam {database}
+1:00 jam (login)
+0:30 jam (store)
+1:00 jam (CRUD All tabel (min. siswa & transaksi))
+0:40 jam (CRUD Siswa)
 
 --------------------- +
-8.5 jam
+9:10 jam
 
 
 cek login siswa
