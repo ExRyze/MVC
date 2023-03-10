@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 10, 2023 at 07:33 AM
+-- Generation Time: Mar 10, 2023 at 08:49 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.1.10
 
@@ -171,6 +171,13 @@ CREATE TABLE `transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `tanggal_bayar`, `bulan_dibayar`, `tahun_dibayar`, `siswa_id`, `petugas_id`, `pembayaran_id`) VALUES
+(5, '2023-03-10 08:22:18', 'Agustus', 2000, 1, 1, 1);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -213,9 +220,11 @@ ALTER TABLE `siswa`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD UNIQUE KEY `petugas_id` (`petugas_id`),
   ADD KEY `pembayaran_id` (`pembayaran_id`),
-  ADD KEY `siswa_id` (`siswa_id`);
+  ADD KEY `siswa_id` (`siswa_id`),
+  ADD KEY `siswa_id_2` (`siswa_id`),
+  ADD KEY `siswa_id_3` (`siswa_id`,`petugas_id`,`pembayaran_id`),
+  ADD KEY `petugas_id` (`petugas_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -255,7 +264,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

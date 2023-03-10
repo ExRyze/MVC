@@ -12,6 +12,14 @@ class Siswa_tabel {
     $this->db = new Database;
   }
 
+  public function get($nis) {
+    $this->db->query("SELECT * FROM {$this->tabel} s LEFT JOIN {$this->pengguna} p ON s.`pengguna_id` = p.`id_pengguna`
+    LEFT JOIN {$this->pembayaran} b ON s.`pembayaran_id` = b.`id_pembayaran`
+    LEFT JOIN {$this->kelas} k ON s.`kelas_id` = k.`id_kelas` WHERE s.`nis` = :nis");
+    $this->db->bind("nis", $nis);
+    return $this->db->result();
+  }
+
   public function getAll() {
     $this->db->query("SELECT * FROM {$this->tabel} s LEFT JOIN {$this->pengguna} p ON s.`pengguna_id` = p.`id_pengguna`
     LEFT JOIN {$this->pembayaran} b ON s.`pembayaran_id` = b.`id_pembayaran`

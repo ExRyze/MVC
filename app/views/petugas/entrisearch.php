@@ -31,26 +31,37 @@
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Action</th>
                                             <th>NISN</th>
                                             <th>NIS</th>
                                             <th>Nama siswa</th>
                                             <th>Kelas</th>
                                             <th>Tahun ajaran</th>
-                                            <th>Pembayaran</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Action</th>
                                             <th>NISN</th>
                                             <th>NIS</th>
                                             <th>Nama siswa</th>
                                             <th>Kelas</th>
                                             <th>Tahun ajaran</th>
-                                            <th>Pembayaran</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        
+                                        <?php foreach ($data['tabel'] as  $value) { ?>
+                                            <tr>
+                                                <td>
+                                                    <a class="btn btn-primary" href="<?= BURL ?>/petugas/entri/<?= $value['nis'] ?>">Transaksi</a>
+                                                </td>
+                                                <td><?= $value['nisn'] ?></td>
+                                                <td><?= $value['nis'] ?></td>
+                                                <td><?= $value['nama_siswa'] ?></td>
+                                                <td><?= $value['nama_kelas'] ?></td>
+                                                <td><?= $value['tahun_ajaran']." [Rp. ".number_format($value['nominal'], 0, ",", ".")."]" ?></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

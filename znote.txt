@@ -6,9 +6,11 @@
 0:30 jam (store)
 1:00 jam (CRUD All tabel (min. siswa & transaksi))
 0:40 jam (CRUD Siswa)
+0:40 jam (Entri)
+0:25 jam (History & tabel Transaksi)
 
 --------------------- +
-9:10 jam
+10:15 jam
 
 
 cek login siswa

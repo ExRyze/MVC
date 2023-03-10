@@ -21,6 +21,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php Flasher::getMessage() ?>
+
                     <div class="row">
                         
                         <div class="col-xl-4 col-lg-5">
@@ -28,10 +30,13 @@
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h5>Profile siswa</h5>
                                 </div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-center">
+                                <div class="card-body text-center">
+                                    <div class="d-flex justify-content-center mb-3">
                                         <img class="img-profile rounded-circle col-6" src="<?= IMG ?>/undraw_profile.svg">
                                     </div>
+                                    <h5><?= $data['siswa']['nama_siswa'] ?></h5><br>
+                                    <small><?= $data['siswa']['tahun_ajaran'] ?></small><br>
+                                    <small><?= $data['siswa']['nama_kelas'] ?></small>
                                 </div>
                             </div>
                         </div>
@@ -42,16 +47,39 @@
                                     <h5>Transaksi pembayaran</h5>
                                 </div>
                                 <div class="card-body d-flex flex-wrap">
-                                    <?php foreach ($data['bulan'] as $bulan) { ?>
-                                        <div class="col-xl-3 col-lg-4 mb-4">
-                                            <div class="card">
-                                                <div class="card-body d-flex flex-column aling-items-center text-center">
-                                                    <h5><?= $bulan ?></h5>
-                                                    <button class="btn btn-danger">Bayar</button>
+                                    <?php foreach ($data['bulan'] as $ib => $bulan) { ?>
+                                        <?php foreach ($data['transaksi'] as $value) { ?>
+                                            <?php if ($bulan === $value['bulan_dibayar']) { ?>
+                                                <div class="col-xl-3 col-lg-4 mb-4">
+                                                    <div class="card">
+                                                        <div class="card-body d-flex flex-column aling-items-center text-center">
+                                                        <?= $bulan ?>
+                                                            <span><?= "Rp. ".number_format($data['siswa']['nominal'], 0, ",", ".") ?></span>
+                                                            <button class="btn btn-success" type="submit">Lnas</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php $data['created'] = true; break;} ?>
+                                        <?php } ?>
+                                        <?php if (!$data['created']) { ?>
+                                            <div class="col-xl-3 col-lg-4 mb-4">
+                                                <div class="card">
+                                                    <div class="card-body d-flex flex-column aling-items-center text-center">
+                                                    <?= $bulan ?>
+                                                        <span><?= "Rp. ".number_format($data['siswa']['nominal'], 0, ",", ".") ?></span>
+                                                        <form action="<?= BURL ?>/petugas/store/transaksi" method="post">
+                                                            <input type="hidden" name="bulanDibayar" value="<?= $bulan ?>">
+                                                            <input type="hidden" name="tahunDibayar" value="<?= ($ib <= 5) ? substr($data['siswa']['tahun_ajaran'], 0, 4) : substr($data['siswa']['tahun_ajaran'], 5, 4) ?>">
+                                                            <input type="hidden" name="siswaId" value="<?= $data['siswa']['id_siswa'] ?>">
+                                                            <input type="hidden" name="pembayaranId" value="<?= $data['siswa']['pembayaran_id'] ?>">
+                                                            <input type="hidden" name="petugasId" value="<?= $_SESSION['sppsch2']['id_petugas'] ?>">
+                                                            <button class="btn btn-danger" type="submit">Bayar</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php } ?>
+                                        <?php } ?>
+                                    <?php $data['created'] = false;} ?>
                                 </div>
                             </div>
                         </div>

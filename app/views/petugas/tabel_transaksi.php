@@ -21,6 +21,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <?php Flasher::getMessage() ?>
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -33,6 +35,7 @@
                                         <tr>
                                             <th>Action</th>
                                             <th>NISN</th>
+                                            <th>NIS</th>
                                             <th>Nama siswa</th>
                                             <th>Kelas</th>
                                             <th>Tahun_ajaran</th>
@@ -45,6 +48,7 @@
                                         <tr>
                                             <th>Action</th>
                                             <th>NISN</th>
+                                            <th>NIS</th>
                                             <th>Nama siswa</th>
                                             <th>Kelas</th>
                                             <th>Tahun_ajaran</th>
@@ -54,19 +58,32 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <td>
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header">Action:</div>
-                                                    <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusKelas">Hapus</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <?php foreach ($data['tabel'] as  $value) { ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="dropdown no-arrow">
+                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-bottom shadow animated--fade-in"
+                                                            aria-labelledby="dropdownMenuLink">
+                                                            <div class="dropdown-header">Action:</div>
+                                                            <a class="dropdown-item text-primary" href="<?= BURL ?>/petugas/entri/<?= $value['nis'] ?>">Info</a>
+                                                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#hapusKelas">Hapus</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><?= $value['nisn'] ?></td>
+                                                <td><?= $value['nis'] ?></td>
+                                                <td><?= $value['nama_siswa'] ?></td>
+                                                <td><?= $value['nama_kelas'] ?></td>
+                                                <td><?= $value['tahun_ajaran']." [Rp. ".number_format($value['nominal'], 0, ",", ".")."]" ?></td>
+                                                <td><?= date("Y-m-d h:i:s A", strtotime($value['tanggal_bayar'])) ?></td>
+                                                <td><?= $value['bulan_dibayar']." - ".$value['tahun_dibayar'] ?></td>
+                                                <td><?= $value['nama_petugas'] ?></td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -95,25 +112,27 @@
     </a>
 
     <!-- Hapus Transaksi Modal-->
-    <div class="modal fade" id="hapusKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content" method="post" action="<?= BURL ?>/petugas/edit/<?= $data['key'] ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit transaksi</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="idKelas">
-                    Yakin hapus transaksi ini?<br>
-                    <strong></strong>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" type="submit">Hapus</button>
-                </div>
-            </form>
+    <?php foreach ($data['tabel'] as $value) { ?>
+        <div class="modal fade" id="hapusKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="modal-content" method="post" action="<?= BURL ?>/petugas/remove/transaksi">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus transaksi</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="idTransaksi" value="<?= $value['id_transaksi'] ?>">
+                        Yakin hapus transaksi ini?<br>
+                        <strong></strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Hapus</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <?php } ?>
     <?php require_once FOOT ?>

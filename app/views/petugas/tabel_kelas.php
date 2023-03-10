@@ -168,7 +168,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <form class="modal-content" method="post" action="<?= BURL ?>/petugas/remove/<?= $data['key'] ?>">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit kelas</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Hapus kelas</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
