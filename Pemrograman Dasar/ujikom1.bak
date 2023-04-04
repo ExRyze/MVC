@@ -1,0 +1,66 @@
+program ujikom1;
+
+uses crt;
+
+var
+        T : array[1..10] of integer;
+        i, j : integer;
+
+const
+        n : integer = 10;
+
+procedure readArray;
+begin
+        for i := 1 to n do
+        begin
+                write('Masukkan nilai array T indek ke-',i,' = ');
+                read(T[i]);
+        end;
+end;
+
+procedure writeArray;
+begin
+        write('Isi array T = [');
+        for i:= 1 to n do
+        begin
+                write(' ',T[i],' ');
+        end;
+        write(']');
+end;
+
+function sortArray : boolean;
+var
+        tmp : integer;
+
+begin
+        sortArray := true;
+        for i := 1 to n do
+                for j := 1 to n-1 do
+                        if T[j] > T[j+1] then
+                                begin
+                                        tmp := T[j];
+                                        T[j] := T[j+1];
+                                        T[j+1] := tmp;
+                                        sortArray := false;
+                                end;
+end;
+
+begin
+        clrscr;
+        readArray();
+        writeln();
+        writeArray();
+        writeln();
+        if sortArray = true then
+                write('Array sudah terurut')
+        else
+                begin
+                        writeln('Pengurutan array dilakukan');
+                        writeArray();
+                end;
+        readkey();
+        readkey();
+        readkey();
+        readkey();
+end.
+

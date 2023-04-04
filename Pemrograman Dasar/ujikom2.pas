@@ -1,0 +1,14 @@
+program ujikom2;
+
+uses crt;
+
+var
+        f : TextFile;
+
+begin
+        clrscr;
+        assign(f, 'TeksUjikom2.txt');
+        rewrite(f);
+        writeln(f, 'Saya sedang mengikuti Uji Kompetensi Rekayasa Perangkat Lunak Tahun 2023');
+        close(f);
+end.
